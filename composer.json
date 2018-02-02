@@ -1,0 +1,15 @@
+{
+    "name": "lepiaf/sapient-bundle",
+    "description": "Symfony bundle that wrap sapient library",
+    "type": "bundle",
+    "require": {
+        "paragonie/sapient": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thierry Thuon",
+            "email": "thierry@thuon.eu"
+        }
+    ]
+}
