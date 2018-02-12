@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace lepiaf\SapientBundle\EventSubscriber;
 
 use ParagonIE\ConstantTime\Base64UrlSafe;
-use ParagonIE\Sapient\CryptographyKeys\SigningSecretKey;
+use ParagonIE\Sapient\CryptographyKeys\SealingPublicKey;
 use ParagonIE\Sapient\Sapient;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SignResponseSubscriber implements EventSubscriberInterface
+class SealResponseSubscriber implements EventSubscriberInterface
 {
     /**
      * @var HttpFoundationFactory
@@ -25,7 +25,7 @@ class SignResponseSubscriber implements EventSubscriberInterface
     /**
      * @var string
      */
-    private $serverSignSecret;
+    private $serverSealPublic;
 
     /**
      * @var Sapient
@@ -42,37 +42,37 @@ class SignResponseSubscriber implements EventSubscriberInterface
         $this->httpFoundationFactory = $httpFoundationFactory;
         $this->diactorosFactory = $diactorosFactory;
         $this->sapient = $sapient;
-        $this->serverSignSecret = 'jQF-_BEiHuUFqd__AyC_MbgTU9CPOyGzj6nqmykEQ9NbbxSzjGK5e_0HvtnQKTgAdbKLCXmDnXb3v-hJ81D-XA==';
+        $this->serverSealPublic = 'W28Us4xiuXv9B77Z0Ck4AHWyiwl5g51297_oSfNQ_lw=';
     }
 
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['signPsrResponse', -100],
-            KernelEvents::RESPONSE => ['signHttpFoundationResponse', -100],
+            KernelEvents::VIEW => ['sealPsrResponse', -110],
+            KernelEvents::RESPONSE => ['sealHttpFoundationResponse', -110],
         ];
     }
 
-    public function signHttpFoundationResponse(FilterResponseEvent $event): void
+    public function sealHttpFoundationResponse(FilterResponseEvent $event): void
     {
         $event->setResponse(
-            $this->signResponse($this->diactorosFactory->createResponse($event->getResponse()))
+            $this->sealResponse($this->diactorosFactory->createResponse($event->getResponse()))
         );
     }
 
-    public function signPsrResponse(GetResponseForControllerResultEvent $event): void
+    public function sealPsrResponse(GetResponseForControllerResultEvent $event): void
     {
         $response = $event->getResponse();
         if (!$response instanceof ResponseInterface) {
             return;
         }
 
-        $event->setResponse($this->signResponse($response));
+        $event->setResponse($this->sealResponse($response));
     }
 
-    private function signResponse(ResponseInterface $response): Response
+    private function sealResponse(ResponseInterface $response): Response
     {
-        $psrResponse = $this->sapient->signResponse($response, new SigningSecretKey(Base64UrlSafe::decode($this->serverSignSecret)));
+        $psrResponse = $this->sapient->sealResponse($response, new SealingPublicKey(Base64UrlSafe::decode($this->serverSealPublic)));
 
         return $this->httpFoundationFactory->createResponse($psrResponse);
     }
