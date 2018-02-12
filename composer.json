@@ -3,7 +3,14 @@
     "description": "Symfony bundle that wrap sapient library",
     "type": "bundle",
     "require": {
-        "paragonie/sapient": "^1.0"
+        "paragonie/sapient": "^1.0",
+        "symfony/psr-http-message-bridge": "^1.0",
+        "symfony/console": "^4.0",
+        "symfony/http-kernel": "^4.0",
+        "symfony/dependency-injection": "^4.0",
+        "symfony/config": "^4.0",
+        "symfony/event-dispatcher": "^4.0",
+        "zendframework/zend-diactoros": "^1.7"
     },
     "license": "MIT",
     "authors": [
@@ -11,5 +18,8 @@
             "name": "Thierry Thuon",
             "email": "thierry@thuon.eu"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": { "lepiaf\\SapientBundle\\": "" }
+    }
 }

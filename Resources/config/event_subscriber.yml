@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  lepiaf\SapientBundle\EventSubscriber\:
+    resource: "../../EventSubscriber/*"
+    tags:
+      - { name: kernel.event_subscriber }
