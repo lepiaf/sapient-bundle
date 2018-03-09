@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -23,9 +24,9 @@ class SealResponseSubscriber implements EventSubscriberInterface
     private $httpFoundationFactory;
 
     /**
-     * @var string
+     * @var PublicKeyGetter
      */
-    private $serverSealPublic;
+    private $publicKeyGetter;
 
     /**
      * @var Sapient
@@ -37,12 +38,12 @@ class SealResponseSubscriber implements EventSubscriberInterface
      */
     private $diactorosFactory;
 
-    public function __construct(HttpFoundationFactory $httpFoundationFactory, DiactorosFactory $diactorosFactory, Sapient $sapient)
+    public function __construct(HttpFoundationFactory $httpFoundationFactory, DiactorosFactory $diactorosFactory, Sapient $sapient, PublicKeyGetter $publicKeyGetter)
     {
         $this->httpFoundationFactory = $httpFoundationFactory;
         $this->diactorosFactory = $diactorosFactory;
         $this->sapient = $sapient;
-        $this->serverSealPublic = 'W28Us4xiuXv9B77Z0Ck4AHWyiwl5g51297_oSfNQ_lw=';
+        $this->publicKeyGetter = $publicKeyGetter;
     }
 
     public static function getSubscribedEvents()
@@ -55,25 +56,36 @@ class SealResponseSubscriber implements EventSubscriberInterface
 
     public function sealHttpFoundationResponse(FilterResponseEvent $event): void
     {
-        $event->setResponse(
-            $this->sealResponse($this->diactorosFactory->createResponse($event->getResponse()))
-        );
+        $publicKey = $this->getPublicKeyByRequester($event->getRequest());
+        $psrResponse = $this->diactorosFactory->createResponse($event->getResponse());
+        $event->setResponse($this->sealResponse($psrResponse, $publicKey));
     }
 
     public function sealPsrResponse(GetResponseForControllerResultEvent $event): void
     {
+        $publicKey = $this->getPublicKeyByRequester($event->getRequest());
         $response = $event->getResponse();
         if (!$response instanceof ResponseInterface) {
             return;
         }
 
-        $event->setResponse($this->sealResponse($response));
+        $event->setResponse($this->sealResponse($response, $publicKey));
     }
 
-    private function sealResponse(ResponseInterface $response): Response
+    private function sealResponse(ResponseInterface $response, string $publicKey): Response
     {
-        $psrResponse = $this->sapient->sealResponse($response, new SealingPublicKey(Base64UrlSafe::decode($this->serverSealPublic)));
+        $psrResponse = $this->sapient->sealResponse($response, new SealingPublicKey(Base64UrlSafe::decode($publicKey)));
 
         return $this->httpFoundationFactory->createResponse($psrResponse);
+    }
+
+    private function getPublicKeyByRequester(Request $request)
+    {
+        $publicKey = $this->publicKeyGetter->get($request);
+        if ('' === $publicKey) {
+            throw new \RuntimeException('Public key not found for requester. Cannot seal response.');
+        }
+
+        return $publicKey;
     }
 }

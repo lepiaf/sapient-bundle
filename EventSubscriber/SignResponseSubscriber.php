@@ -25,7 +25,7 @@ class SignResponseSubscriber implements EventSubscriberInterface
     /**
      * @var string
      */
-    private $serverSignSecret;
+    private $signPrivateKey;
 
     /**
      * @var Sapient
@@ -37,12 +37,12 @@ class SignResponseSubscriber implements EventSubscriberInterface
      */
     private $diactorosFactory;
 
-    public function __construct(HttpFoundationFactory $httpFoundationFactory, DiactorosFactory $diactorosFactory, Sapient $sapient)
+    public function __construct(HttpFoundationFactory $httpFoundationFactory, DiactorosFactory $diactorosFactory, Sapient $sapient, string $signPrivateKey)
     {
         $this->httpFoundationFactory = $httpFoundationFactory;
         $this->diactorosFactory = $diactorosFactory;
         $this->sapient = $sapient;
-        $this->serverSignSecret = 'jQF-_BEiHuUFqd__AyC_MbgTU9CPOyGzj6nqmykEQ9NbbxSzjGK5e_0HvtnQKTgAdbKLCXmDnXb3v-hJ81D-XA==';
+        $this->signPrivateKey = $signPrivateKey;
     }
 
     public static function getSubscribedEvents()
@@ -72,7 +72,7 @@ class SignResponseSubscriber implements EventSubscriberInterface
 
     private function signResponse(ResponseInterface $response): Response
     {
-        $psrResponse = $this->sapient->signResponse($response, new SigningSecretKey(Base64UrlSafe::decode($this->serverSignSecret)));
+        $psrResponse = $this->sapient->signResponse($response, new SigningSecretKey(Base64UrlSafe::decode($this->signPrivateKey)));
 
         return $this->httpFoundationFactory->createResponse($psrResponse);
     }

@@ -16,5 +16,13 @@ class SapientExtension extends Extension
         $loader->load('console.yml');
         $loader->load('event_subscriber.yml');
         $loader->load('service.yml');
+
+        $container->setParameter('sapient.seal.public', $configs['seal']['public']);
+        $container->setParameter('sapient.seal.private', $configs['seal']['private']);
+        $container->setParameter('sapient.seal.enabled', $configs['seal']['enabled']);
+        $container->setParameter('sapient.sign.public', $configs['sign']['public']);
+        $container->setParameter('sapient.sign.private', $configs['sign']['private']);
+        $container->setParameter('sapient.sign.enabled', $configs['sign']['enabled']);
+        $container->setParameter('sapient.requester_public_keys', $configs['requester_public_keys']);
     }
 }

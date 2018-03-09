@@ -3,6 +3,9 @@ services:
     autowire: true
     autoconfigure: true
     public: false
+    bind:
+      $sealPrivateKey: '@sapient.seal.private.key'
+      $requesterPublicKeys: '@sapient.requester_public_keys'
   lepiaf\SapientBundle\EventSubscriber\:
     resource: "../../EventSubscriber/*"
     tags:
