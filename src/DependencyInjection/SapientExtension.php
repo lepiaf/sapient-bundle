@@ -12,7 +12,7 @@ class SapientExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new YamlFileLoader($container, new FileLocator(dirname(__DIR__).'/Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(dirname(__DIR__) . '/Resources/config'));
         $loader->load('console.yml');
         $loader->load('event_subscriber.yml');
         $loader->load('service.yml');

@@ -20,6 +20,6 @@
         }
     ],
     "autoload": {
-        "psr-4": { "lepiaf\\SapientBundle\\": "" }
+        "psr-4": { "lepiaf\\SapientBundle\\": "src/" }
     }
 }
