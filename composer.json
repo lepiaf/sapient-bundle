@@ -21,5 +21,9 @@
     ],
     "autoload": {
         "psr-4": { "lepiaf\\SapientBundle\\": "src/" }
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "^7.0"
     }
 }
