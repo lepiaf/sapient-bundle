@@ -1,0 +1,9 @@
+services:
+  lepiaf\SapientBundle\EventSubscriber\SignResponseSubscriber:
+    arguments:
+      - '@Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory'
+      - '@Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory'
+      - '@ParagonIE\Sapient\Sapient'
+      - '%sapient.sign.private%'
+    tags:
+      - { name: kernel.event_subscriber }

@@ -1,0 +1,12 @@
+services:
+  lepiaf\SapientBundle\EventSubscriber\SealResponseSubscriber:
+    arguments:
+      - "@Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory"
+      - "@Symfony\\Bridge\\PsrHttpMessage\\Factory\\DiactorosFactory"
+      - "@ParagonIE\\Sapient\\Sapient"
+      - "@lepiaf\\SapientBundle\\Service\\PublicKeyGetter"
+      - "%sapient.requester_public_keys%"
+    tags:
+      -
+        name: kernel.event_subscriber
+  lepiaf\SapientBundle\Service\PublicKeyGetter: ~

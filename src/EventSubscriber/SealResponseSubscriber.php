@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\EventSubscriber;
 
+use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use ParagonIE\Sapient\CryptographyKeys\SealingPublicKey;
 use ParagonIE\Sapient\Sapient;

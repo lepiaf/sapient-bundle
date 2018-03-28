@@ -15,7 +15,7 @@ class GenerateConfigurationCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('lepiaf:sapient:configure')
+        $this->setName('sapient:configure')
             ->setDescription('Generate configuration');
     }
 
@@ -26,15 +26,13 @@ class GenerateConfigurationCommand extends Command
         $output->write(<<<CONFIG
 sapient:
     sign:
-        enabled: true
         public: {$signingKey->getPublickey()->getString()}
         private: {$signingKey->getString()}
     seal:
-        enabled: true
         public: {$sealKey->getPublickey()->getString()}
         private: {$sealKey->getString()}
     requester_public_keys: ~
 CONFIG
-);
+        );
     }
 }

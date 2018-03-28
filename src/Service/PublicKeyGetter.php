@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace lepiaf\SapientBundle\EventSubscriber;
+namespace lepiaf\SapientBundle\Service;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,13 +12,9 @@ class PublicKeyGetter
      */
     private $requesterPublicKeys;
 
-    /**
-     * @var bool
-     */
-    private $strict;
-
-    public function __construct(array $requesterPublicKeys, bool $strict = true)
+    public function __construct(array $requesterPublicKeys)
     {
+        $this->requesterPublicKeys = $requesterPublicKeys;
     }
 
     public function get(Request $request): string
