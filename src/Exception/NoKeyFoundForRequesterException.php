@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace lepiaf\SapientBundle\EventSubscriber;
+namespace lepiaf\SapientBundle\Exception;
 
 class NoKeyFoundForRequesterException extends \OutOfBoundsException
 {

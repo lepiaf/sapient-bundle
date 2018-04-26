@@ -1,8 +1,11 @@
 services:
+  lepiaf\SapientBundle\Service\PublicKeyGetter:
+    arguments:
+      - "%sapient.requester_public_keys%"
   lepiaf\SapientBundle\EventSubscriber\VerifyRequestSubscriber:
     arguments:
       - '@Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory'
       - '@ParagonIE\Sapient\Sapient'
-      - '%sapient.sign.private%'
+      - "@lepiaf\\SapientBundle\\Service\\PublicKeyGetter"
     tags:
       - { name: kernel.event_subscriber }

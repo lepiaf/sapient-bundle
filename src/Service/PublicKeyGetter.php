@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\Service;
 
-use lepiaf\SapientBundle\EventSubscriber\NoKeyFoundForRequesterException;
-use lepiaf\SapientBundle\EventSubscriber\OriginHeaderMissingException;
+use lepiaf\SapientBundle\Exception\{
+    OriginHeaderMissingException,
+    NoKeyFoundForRequesterException
+};
 use Symfony\Component\HttpFoundation\Request;
 
 class PublicKeyGetter
