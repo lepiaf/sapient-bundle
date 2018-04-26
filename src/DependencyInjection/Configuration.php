@@ -28,6 +28,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('public')->isRequired()->end()
                     ->end()
                 ->end()
+                ->booleanNode('must_verify_signed_request')->defaultFalse()->end()
                 ->arrayNode('requester_public_keys')
                     ->arrayPrototype()
                         ->children()

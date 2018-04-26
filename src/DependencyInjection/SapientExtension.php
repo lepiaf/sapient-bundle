@@ -33,5 +33,10 @@ class SapientExtension extends Extension
             $container->setParameter('sapient.sign.public', $config['sign']['public']);
             $container->setParameter('sapient.sign.private', $config['sign']['private']);
         }
+
+        if ($config['must_verify_signed_request']) {
+            $loader->load('verify_signed_request.yml');
+            $container->setParameter('sapient.requester_public_keys', $config['requester_public_keys']);
+        }
     }
 }

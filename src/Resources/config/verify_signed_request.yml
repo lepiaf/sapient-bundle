@@ -1,0 +1,8 @@
+services:
+  lepiaf\SapientBundle\EventSubscriber\VerifyRequestSubscriber:
+    arguments:
+      - '@Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory'
+      - '@ParagonIE\Sapient\Sapient'
+      - '%sapient.sign.private%'
+    tags:
+      - { name: kernel.event_subscriber }
