@@ -6,9 +6,4 @@ services:
       - '@ParagonIE\Sapient\Sapient'
       - '@lepiaf\SapientBundle\Service\PublicKeyGetter'
     tags:
-      -
-        name: kernel.event_subscriber
-  lepiaf\SapientBundle\Service\PublicKeyGetter:
-      arguments:
-        - "%sapient.client_public_keys%"
-        - "%sapient.server_public_keys%"
+      - { name: kernel.event_subscriber }

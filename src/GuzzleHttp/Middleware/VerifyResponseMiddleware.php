@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\GuzzleHttp\Middleware;
 
@@ -9,7 +9,6 @@ use ParagonIE\Sapient\CryptographyKeys\SigningPublicKey;
 use ParagonIE\Sapient\Sapient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 
 class VerifyResponseMiddleware
 {
@@ -23,25 +22,18 @@ class VerifyResponseMiddleware
      */
     private $publicKeyGetter;
 
-    /**
-     * @var HttpFoundationFactory
-     */
-    private $httpFoundationFactory;
-
-    public function __construct(Sapient $sapient, PublicKeyGetter $publicKeyGetter, HttpFoundationFactory $httpFoundationFactory)
+    public function __construct(Sapient $sapient, PublicKeyGetter $publicKeyGetter)
     {
         $this->sapient = $sapient;
         $this->publicKeyGetter = $publicKeyGetter;
-        $this->httpFoundationFactory = $httpFoundationFactory;
     }
 
     public function __invoke(callable $handler): callable
     {
         return function (RequestInterface $request, array $options) use ($handler) {
             return $handler($request, $options)->then(
-                function (ResponseInterface $response) use ($request) {
-                    $httpFoundationRequest = $this->httpFoundationFactory->createRequest($request);
-                    $publicKey = $this->publicKeyGetter->getServerKey($httpFoundationRequest);
+                function (ResponseInterface $response) {
+                    $publicKey = $this->publicKeyGetter->getVerifyingKey($response);
                     $this->sapient->verifySignedResponse(
                         $response,
                         new SigningPublicKey(Base64UrlSafe::decode($publicKey))

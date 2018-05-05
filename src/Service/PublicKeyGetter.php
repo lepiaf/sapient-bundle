@@ -4,72 +4,76 @@ declare(strict_types=1);
 namespace lepiaf\SapientBundle\Service;
 
 use lepiaf\SapientBundle\Exception\{
-    OriginHeaderMissingException,
-    NoKeyFoundForRequesterException
+    RequesterHeaderMissingException,
+    NoKeyFoundForRequesterException,
+    SignerHeaderMissingException
 };
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ResponseInterface;
 
 class PublicKeyGetter
 {
-    /**
-     * @var array
-     */
-    private $clientPublicKeys;
+    public const HEADER_SIGNER = 'Sapient-Signer';
+    private const HEADER_REQUESTER = 'Sapient-Requester';
 
     /**
      * @var array
      */
-    private $serverPublicKeys;
+    private $sealingPublicKeys;
 
-    public function __construct(array $clientPublicKeys, array $serverPublicKeys)
+    /**
+     * @var array
+     */
+    private $verifyingPublicKeys;
+
+    public function __construct(array $sealingPublicKeys, array $verifyingPublicKeys)
     {
-        $this->clientPublicKeys = $clientPublicKeys;
-        $this->serverPublicKeys = $serverPublicKeys;
+        $this->sealingPublicKeys = $sealingPublicKeys;
+        $this->verifyingPublicKeys = $verifyingPublicKeys;
     }
 
     /**
-     * @param Request $request
+     * @param ResponseInterface $request
      *
      * @return string
      *
-     * @throws OriginHeaderMissingException
+     * @throws RequesterHeaderMissingException
      * @throws NoKeyFoundForRequesterException
      */
-    public function getClientKey(Request $request): string
+    public function getSealingKey(ResponseInterface $request): string
     {
-        if (!$request->headers->has('X-Origin')) {
-            throw new OriginHeaderMissingException('X-Origin header is missing.');
+        if (!$request->hasHeader(self::HEADER_REQUESTER)) {
+            throw new RequesterHeaderMissingException(sprintf('%s header is missing.', self::HEADER_REQUESTER));
         }
 
-        foreach ($this->clientPublicKeys as $clientPublicKey) {
-            if ($request->headers->get('X-Origin') === $clientPublicKey['name']) {
-                return $clientPublicKey['key'];
+        foreach ($this->sealingPublicKeys as $sealingPublicKey) {
+            if ($request->getHeader(self::HEADER_REQUESTER) === $sealingPublicKey['name']) {
+                return $sealingPublicKey['key'];
             }
         }
 
-        throw new NoKeyFoundForRequesterException('Public key not found for requester.');
+        throw new NoKeyFoundForRequesterException('Sealing key not found.');
     }
 
     /**
-     * @param Request $request
+     * @param ResponseInterface $response
      *
      * @return string
      *
-     * @throws OriginHeaderMissingException
+     * @throws SignerHeaderMissingException
      * @throws NoKeyFoundForRequesterException
      */
-    public function getServerKey(Request $request): string
+    public function getVerifyingKey(ResponseInterface $response): string
     {
-        if (!$request->headers->has('X-Origin')) {
-            throw new OriginHeaderMissingException('X-Origin header is missing.');
+        if (!$response->hasHeader(self::HEADER_SIGNER)) {
+            throw new SignerHeaderMissingException(sprintf('%s header is missing.', self::HEADER_SIGNER));
         }
 
-        foreach ($this->serverPublicKeys as $serverPublicKey) {
-            if ($request->headers->get('X-Origin') === $serverPublicKey['name']) {
-                return $serverPublicKey['key'];
+        foreach ($this->verifyingPublicKeys as $verifyingPublicKeys) {
+            if ($response->getHeader(self::HEADER_SIGNER) === $verifyingPublicKeys['name']) {
+                return $verifyingPublicKeys['key'];
             }
         }
 
-        throw new NoKeyFoundForRequesterException('Public key not found for requester.');
+        throw new NoKeyFoundForRequesterException('Verifying key not found.');
     }
 }

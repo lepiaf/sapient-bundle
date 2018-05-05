@@ -57,19 +57,19 @@ class SealResponseSubscriber implements EventSubscriberInterface
 
     public function sealHttpFoundationResponse(FilterResponseEvent $event): void
     {
-        $publicKey = $this->getPublicKeyByRequester($event->getRequest());
+        $publicKey = $this->getSealingKey($event->getRequest());
         $psrResponse = $this->diactorosFactory->createResponse($event->getResponse());
         $event->setResponse($this->sealResponse($psrResponse, $publicKey));
     }
 
     public function sealPsrResponse(GetResponseForControllerResultEvent $event): void
     {
-        $publicKey = $this->getPublicKeyByRequester($event->getRequest());
         $response = $event->getResponse();
         if (!$response instanceof ResponseInterface) {
             return;
         }
 
+        $publicKey = $this->getSealingKey($event->getRequest());
         $event->setResponse($this->sealResponse($response, $publicKey));
     }
 
@@ -80,13 +80,10 @@ class SealResponseSubscriber implements EventSubscriberInterface
         return $this->httpFoundationFactory->createResponse($psrResponse);
     }
 
-    private function getPublicKeyByRequester(Request $request)
+    private function getSealingKey(Request $request)
     {
-        $publicKey = $this->publicKeyGetter->getClientKey($request);
-        if ('' === $publicKey) {
-            throw new \RuntimeException('Public key not found for requester. Cannot seal response.');
-        }
+        $psrRequest = $this->diactorosFactory->createRequest($request);
 
-        return $publicKey;
+        return $this->publicKeyGetter->getSealingKey($psrRequest);
     }
 }

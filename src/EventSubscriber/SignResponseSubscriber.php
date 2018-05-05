@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\EventSubscriber;
 
+use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use ParagonIE\Sapient\CryptographyKeys\SigningSecretKey;
 use ParagonIE\Sapient\Sapient;
@@ -37,12 +38,18 @@ class SignResponseSubscriber implements EventSubscriberInterface
      */
     private $diactorosFactory;
 
-    public function __construct(HttpFoundationFactory $httpFoundationFactory, DiactorosFactory $diactorosFactory, Sapient $sapient, string $signPrivateKey)
+    /**
+     * @var string
+     */
+    private $signName;
+
+    public function __construct(HttpFoundationFactory $httpFoundationFactory, DiactorosFactory $diactorosFactory, Sapient $sapient, string $signPrivateKey, string $signName)
     {
         $this->httpFoundationFactory = $httpFoundationFactory;
         $this->diactorosFactory = $diactorosFactory;
         $this->sapient = $sapient;
         $this->signPrivateKey = $signPrivateKey;
+        $this->signName = $signName;
     }
 
     public static function getSubscribedEvents()
@@ -73,6 +80,7 @@ class SignResponseSubscriber implements EventSubscriberInterface
     private function signResponse(ResponseInterface $response): Response
     {
         $psrResponse = $this->sapient->signResponse($response, new SigningSecretKey(Base64UrlSafe::decode($this->signPrivateKey)));
+        $psrResponse = $psrResponse->withHeader(PublicKeyGetter::HEADER_SIGNER, $this->signName);
 
         return $this->httpFoundationFactory->createResponse($psrResponse);
     }

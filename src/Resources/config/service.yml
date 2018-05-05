@@ -2,5 +2,8 @@ services:
   ParagonIE\Sapient\Sapient:
   Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory:
   Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory:
-
+  lepiaf\SapientBundle\Service\PublicKeyGetter:
+    arguments:
+      - "%sapient.sealing_public_keys%"
+      - "%sapient.verifying_public_keys%"
 
