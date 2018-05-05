@@ -42,7 +42,7 @@ class PublicKeyGetter
      */
     public function getSealingKey(RequestInterface $request): string
     {
-        if (!$request->hasHeader(self::HEADER_REQUESTER)) {
+        if (!$request->hasHeader(self::HEADER_REQUESTER) || 0 === \count($request->getHeader(self::HEADER_REQUESTER))) {
             throw new RequesterHeaderMissingException(sprintf('%s header is missing.', self::HEADER_REQUESTER));
         }
 
@@ -65,7 +65,7 @@ class PublicKeyGetter
      */
     public function getVerifyingKey(ResponseInterface $response): string
     {
-        if (!$response->hasHeader(self::HEADER_SIGNER)) {
+        if (!$response->hasHeader(self::HEADER_SIGNER) || 0 === \count($response->getHeader(self::HEADER_SIGNER))) {
             throw new SignerHeaderMissingException(sprintf('%s header is missing.', self::HEADER_SIGNER));
         }
 
