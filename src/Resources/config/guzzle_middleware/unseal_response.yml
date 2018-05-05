@@ -1,0 +1,7 @@
+services:
+    lepiaf\SapientBundle\GuzzleHttp\Middleware\UnsealResponseMiddleware:
+        arguments:
+            - '@ParagonIE\Sapient\Sapient'
+            - '%sapient.seal.private%'
+        tags:
+          - { name: 'csa_guzzle.middleware', alias: 'unseal_response', priority: 0 }

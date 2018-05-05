@@ -34,9 +34,21 @@ class SapientExtension extends Extension
             $container->setParameter('sapient.sign.private', $config['sign']['private']);
         }
 
-        if ($config['must_verify_signed_request']) {
-            $loader->load('verify_signed_request.yml');
+//        if ($config['must_verify_signed_request']) {
+//            $loader->load('verify_signed_request.yml');
+//            $container->setParameter('sapient.requester_public_keys', $config['requester_public_keys']);
+//        }
+
+        if ($config['guzzle_middleware']['enabled']) {
             $container->setParameter('sapient.requester_public_keys', $config['requester_public_keys']);
+
+            if ($config['guzzle_middleware']['verify']) {
+                $this->load('guzzle_middleware/verify_response.yml');
+            }
+
+            if ($config['guzzle_middleware']['unseal']) {
+                $this->load('guzzle_middleware/unseal_response.yml');
+            }
         }
     }
 }

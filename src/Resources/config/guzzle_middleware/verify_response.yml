@@ -1,0 +1,8 @@
+services:
+    lepiaf\SapientBundle\GuzzleHttp\Middleware\VerifyResponseMiddleware:
+        arguments:
+            - '@ParagonIE\Sapient\Sapient'
+            - '@lepiaf\SapientBundle\Service\PublicKeyGetter'
+            - '@Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory'
+        tags:
+            - { name: 'csa_guzzle.middleware', alias: 'verify_response', priority: 1 }

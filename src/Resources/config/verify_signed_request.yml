@@ -6,6 +6,6 @@ services:
     arguments:
       - '@Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory'
       - '@ParagonIE\Sapient\Sapient'
-      - "@lepiaf\\SapientBundle\\Service\\PublicKeyGetter"
+      - '@lepiaf\SapientBundle\Service\PublicKeyGetter'
     tags:
       - { name: kernel.event_subscriber }
