@@ -19,13 +19,11 @@ Main abilities are:
 
 You can check out this project and run demo locally [sapient-bundle-demo](https://github.com/lepiaf/sapient-bundle-demo)
 
-## How to install for Symfony 4 (not yet implemented)
+## How to install for Symfony 4
 
 If you use Symfony 4, a recipe exists and it will install all automatically.
 
-```bash
-composer require lepiaf/sapient-bundle
-```
+Follow instructions in [https://symfony.sh/r/github.com/symfony/recipes-contrib/355](https://symfony.sh/r/github.com/symfony/recipes-contrib/355)
 
 ## How to install for Symfony below 4 or without recipe
 
