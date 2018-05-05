@@ -7,3 +7,6 @@ services:
       - "%sapient.sealing_public_keys%"
       - "%sapient.verifying_public_keys%"
 
+  lepiaf\SapientBundle\EventSubscriber\ExceptionSubscriber:
+    tags:
+      - { name: kernel.event_subscriber }
