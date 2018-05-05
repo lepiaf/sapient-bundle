@@ -26,12 +26,12 @@ class GenerateConfigurationCommand extends Command
         $output->write(<<<CONFIG
 sapient:
     sign:
-        public: {$signingKey->getPublickey()->getString()}
-        private: {$signingKey->getString()}
-        name: "signer-name"
+        public: '{$signingKey->getPublickey()->getString()}'
+        private: '{$signingKey->getString()}'
+        name: 'signer-name'
     seal:
-        public: {$sealKey->getPublickey()->getString()}
-        private: {$sealKey->getString()}
+        public: '{$sealKey->getPublickey()->getString()}'
+        private: '{$sealKey->getString()}'
     sealing_public_keys: ~
     verifying_public_keys: ~
 
