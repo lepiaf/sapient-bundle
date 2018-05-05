@@ -1,7 +1,7 @@
 {
     "name": "lepiaf/sapient-bundle",
     "description": "Symfony bundle that wrap sapient library",
-    "type": "bundle",
+    "type": "symfony-bundle",
     "require": {
         "paragonie/sapient": "^1.0",
         "symfony/psr-http-message-bridge": "^1.0",
