@@ -48,7 +48,7 @@ class VerifyRequestSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $psrRequest = $this->diactorosFactory->createRequest($request);
-        $publicKey = $this->publicKeyGetter->get($request);
+        $publicKey = $this->publicKeyGetter->getClientKey($request);
         try {
             $this->sapient->verifySignedRequest($psrRequest, new SigningPublicKey(Base64UrlSafe::decode($publicKey)));
         } catch (\Exception $exception) {

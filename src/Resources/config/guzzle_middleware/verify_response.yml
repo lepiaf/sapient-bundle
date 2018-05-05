@@ -1,4 +1,8 @@
 services:
+    lepiaf\SapientBundle\Service\PublicKeyGetter:
+        arguments:
+          - "%sapient.client_public_keys%"
+          - "%sapient.server_public_keys%"
     lepiaf\SapientBundle\GuzzleHttp\Middleware\VerifyResponseMiddleware:
         arguments:
             - '@ParagonIE\Sapient\Sapient'

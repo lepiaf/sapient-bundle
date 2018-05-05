@@ -9,5 +9,6 @@ services:
       -
         name: kernel.event_subscriber
   lepiaf\SapientBundle\Service\PublicKeyGetter:
-    arguments:
-      - "%sapient.requester_public_keys%"
+      arguments:
+        - "%sapient.client_public_keys%"
+        - "%sapient.server_public_keys%"

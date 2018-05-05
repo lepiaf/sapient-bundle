@@ -14,11 +14,17 @@ class PublicKeyGetter
     /**
      * @var array
      */
-    private $requesterPublicKeys;
+    private $clientPublicKeys;
 
-    public function __construct(array $requesterPublicKeys)
+    /**
+     * @var array
+     */
+    private $serverPublicKeys;
+
+    public function __construct(array $clientPublicKeys, array $serverPublicKeys)
     {
-        $this->requesterPublicKeys = $requesterPublicKeys;
+        $this->clientPublicKeys = $clientPublicKeys;
+        $this->serverPublicKeys = $serverPublicKeys;
     }
 
     /**
@@ -29,15 +35,38 @@ class PublicKeyGetter
      * @throws OriginHeaderMissingException
      * @throws NoKeyFoundForRequesterException
      */
-    public function get(Request $request): string
+    public function getClientKey(Request $request): string
     {
         if (!$request->headers->has('X-Origin')) {
             throw new OriginHeaderMissingException('X-Origin header is missing.');
         }
 
-        foreach ($this->requesterPublicKeys as $requesterPublicKey) {
-            if ($request->headers->get('X-Origin') === $requesterPublicKey['origin']) {
-                return $requesterPublicKey['key'];
+        foreach ($this->clientPublicKeys as $clientPublicKey) {
+            if ($request->headers->get('X-Origin') === $clientPublicKey['name']) {
+                return $clientPublicKey['key'];
+            }
+        }
+
+        throw new NoKeyFoundForRequesterException('Public key not found for requester.');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return string
+     *
+     * @throws OriginHeaderMissingException
+     * @throws NoKeyFoundForRequesterException
+     */
+    public function getServerKey(Request $request): string
+    {
+        if (!$request->headers->has('X-Origin')) {
+            throw new OriginHeaderMissingException('X-Origin header is missing.');
+        }
+
+        foreach ($this->serverPublicKeys as $serverPublicKey) {
+            if ($request->headers->get('X-Origin') === $serverPublicKey['name']) {
+                return $serverPublicKey['key'];
             }
         }
 

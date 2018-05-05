@@ -41,7 +41,7 @@ class VerifyResponseMiddleware
             return $handler($request, $options)->then(
                 function (ResponseInterface $response) use ($request) {
                     $httpFoundationRequest = $this->httpFoundationFactory->createRequest($request);
-                    $publicKey = $this->publicKeyGetter->get($httpFoundationRequest);
+                    $publicKey = $this->publicKeyGetter->getServerKey($httpFoundationRequest);
                     $this->sapient->verifySignedResponse(
                         $response,
                         new SigningPublicKey(Base64UrlSafe::decode($publicKey))

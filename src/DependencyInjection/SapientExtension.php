@@ -24,7 +24,7 @@ class SapientExtension extends Extension
 
             $container->setParameter('sapient.seal.public', $config['seal']['public']);
             $container->setParameter('sapient.seal.private', $config['seal']['private']);
-            $container->setParameter('sapient.requester_public_keys', $config['requester_public_keys']);
+            $container->setParameter('sapient.client_public_keys', $config['client_public_keys']);
         }
 
         if ($config['sign']['enabled']) {
@@ -40,7 +40,7 @@ class SapientExtension extends Extension
 //        }
 
         if ($config['guzzle_middleware']['enabled']) {
-            $container->setParameter('sapient.requester_public_keys', $config['requester_public_keys']);
+            $container->setParameter('sapient.server_public_keys', $config['server_public_keys']);
 
             if ($config['guzzle_middleware']['verify']) {
                 $loader->load('guzzle_middleware/verify_response.yml');

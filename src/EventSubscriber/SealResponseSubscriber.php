@@ -82,7 +82,7 @@ class SealResponseSubscriber implements EventSubscriberInterface
 
     private function getPublicKeyByRequester(Request $request)
     {
-        $publicKey = $this->publicKeyGetter->get($request);
+        $publicKey = $this->publicKeyGetter->getClientKey($request);
         if ('' === $publicKey) {
             throw new \RuntimeException('Public key not found for requester. Cannot seal response.');
         }

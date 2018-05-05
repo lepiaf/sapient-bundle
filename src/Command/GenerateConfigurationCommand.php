@@ -31,7 +31,7 @@ sapient:
     seal:
         public: {$sealKey->getPublickey()->getString()}
         private: {$sealKey->getString()}
-    requester_public_keys: ~
+
 CONFIG
         );
     }

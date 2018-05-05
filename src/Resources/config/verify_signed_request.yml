@@ -1,7 +1,8 @@
 services:
   lepiaf\SapientBundle\Service\PublicKeyGetter:
     arguments:
-      - "%sapient.requester_public_keys%"
+      - "%sapient.client_public_keys%"
+      - "%sapient.server_public_keys%"
   lepiaf\SapientBundle\EventSubscriber\VerifyRequestSubscriber:
     arguments:
       - '@Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory'
