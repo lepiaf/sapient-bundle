@@ -15,6 +15,10 @@ Main abilities are:
 * Seal response
 * Verify a response from another API
 
+## Demo
+
+You can check out this project and run demo locally [sapient-bundle-demo](https://github.com/lepiaf/sapient-bundle-demo)
+
 ## How to install for Symfony 4 (not yet implemented)
 
 If you use Symfony 4, a recipe exists and it will install all automatically.
