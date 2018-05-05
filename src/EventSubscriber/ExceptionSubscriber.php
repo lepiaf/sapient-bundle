@@ -30,8 +30,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
             || $exception instanceof VerifyRequestException
         ) {
             $event->setException(new BadRequestHttpException($exception->getMessage()));
-
-            return;
+            $event->stopPropagation();
         }
     }
 }
