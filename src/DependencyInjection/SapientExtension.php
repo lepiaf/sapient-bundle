@@ -43,11 +43,11 @@ class SapientExtension extends Extension
             $container->setParameter('sapient.requester_public_keys', $config['requester_public_keys']);
 
             if ($config['guzzle_middleware']['verify']) {
-                $this->load('guzzle_middleware/verify_response.yml');
+                $loader->load('guzzle_middleware/verify_response.yml');
             }
 
             if ($config['guzzle_middleware']['unseal']) {
-                $this->load('guzzle_middleware/unseal_response.yml');
+                $loader->load('guzzle_middleware/unseal_response.yml');
             }
         }
     }
