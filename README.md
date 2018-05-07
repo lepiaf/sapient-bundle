@@ -1,7 +1,9 @@
 # Sapient bundle for Symfony
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f6279110-ac35-47e3-9439-3416ece59667/big.png)](https://insight.sensiolabs.com/projects/f6279110-ac35-47e3-9439-3416ece59667)
 [![Build Status](https://travis-ci.org/lepiaf/sapient-bundle.svg?branch=master)](https://travis-ci.org/lepiaf/sapient-bundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lepiaf/sapient-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lepiaf/sapient-bundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/lepiaf/sapient-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lepiaf/sapient-bundle/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f6279110-ac35-47e3-9439-3416ece59667/mini.png)](https://insight.sensiolabs.com/projects/f6279110-ac35-47e3-9439-3416ece59667)
 
 [Sapient](https://github.com/paragonie/sapient) is a toolkit to secure API exchange. 
 
