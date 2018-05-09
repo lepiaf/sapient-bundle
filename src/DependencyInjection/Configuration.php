@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('verifying_public_keys')
-                   ->arrayPrototype()
+                    ->arrayPrototype()
                         ->children()
                             ->scalarNode('name')->end()
                             ->scalarNode('key')->end()

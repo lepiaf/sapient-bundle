@@ -22,9 +22,9 @@ class UnsealResponseMiddleware
 
     public function __invoke(callable $handler)
     {
-        return function (RequestInterface $request, array $options) use ($handler) {
+        return function(RequestInterface $request, array $options) use ($handler) {
             return $handler($request, $options)->then(
-                function (ResponseInterface $response) {
+                function(ResponseInterface $response) {
                     $responseUnsealed = $this->sapient->unsealResponse(
                         $response,
                         new SealingSecretKey(Base64UrlSafe::decode($this->privateKey))
