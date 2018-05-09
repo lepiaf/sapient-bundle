@@ -5,6 +5,7 @@ namespace Tests\lepiaf\SapientBundle\Service;
 use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class PublicKeyGetterTest extends TestCase
 {
@@ -74,5 +75,73 @@ class PublicKeyGetterTest extends TestCase
         $request->hasHeader('Sapient-Requester')->shouldBeCalled()->willReturn(true);
         $request->getHeader('Sapient-Requester')->shouldBeCalled()->willReturn(['baz']);
         $this->assertSame('bar', $publicKeyGetter->getSealingKey($request->reveal()));
+    }
+
+    public function testGetVerifyingKey()
+    {
+        $publicKeyGetter = new PublicKeyGetter(
+            [],
+            [
+                ['name' => 'foo', 'key' => 'bar']
+            ]
+        );
+
+        $response = $this->prophesize(ResponseInterface::class);
+        $response->hasHeader('Sapient-Signer')->shouldBeCalled()->willReturn(true);
+        $response->getHeader('Sapient-Signer')->shouldBeCalled()->willReturn(['foo']);
+        $this->assertSame('bar', $publicKeyGetter->getVerifyingKey($response->reveal()));
+    }
+
+    /**
+     * @expectedException \lepiaf\SapientBundle\Exception\SignerHeaderMissingException
+     */
+    public function testSignerHeaderMissing()
+    {
+        $publicKeyGetter = new PublicKeyGetter(
+            [],
+            [
+                ['name' => 'foo', 'key' => 'bar']
+            ]
+        );
+
+        $response = $this->prophesize(ResponseInterface::class);
+        $response->hasHeader('Sapient-Signer')->shouldBeCalled()->willReturn(false);
+        $this->assertSame('bar', $publicKeyGetter->getVerifyingKey($response->reveal()));
+    }
+
+    /**
+     * @expectedException \lepiaf\SapientBundle\Exception\SignerHeaderMissingException
+     */
+    public function testHeaderEmptyForSigner()
+    {
+        $publicKeyGetter = new PublicKeyGetter(
+            [],
+            [
+                ['name' => 'foo', 'key' => 'bar']
+            ]
+        );
+
+        $response = $this->prophesize(ResponseInterface::class);
+        $response->hasHeader('Sapient-Signer')->shouldBeCalled()->willReturn(true);
+        $response->getHeader('Sapient-Signer')->shouldBeCalled()->willReturn([]);
+        $this->assertSame('bar', $publicKeyGetter->getVerifyingKey($response->reveal()));
+    }
+
+    /**
+     * @expectedException \lepiaf\SapientBundle\Exception\NoKeyFoundForRequesterException
+     */
+    public function testKeyNotFoundForSigner()
+    {
+        $publicKeyGetter = new PublicKeyGetter(
+            [],
+            [
+                ['name' => 'foo', 'key' => 'bar']
+            ]
+        );
+
+        $response = $this->prophesize(ResponseInterface::class);
+        $response->hasHeader('Sapient-Signer')->shouldBeCalled()->willReturn(true);
+        $response->getHeader('Sapient-Signer')->shouldBeCalled()->willReturn(['baz']);
+        $this->assertSame('bar', $publicKeyGetter->getVerifyingKey($response->reveal()));
     }
 }
