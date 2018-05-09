@@ -64,7 +64,7 @@ class SealResponseSubscriber implements EventSubscriberInterface
 
     public function sealPsrResponse(GetResponseForControllerResultEvent $event): void
     {
-        $response = $event->getResponse();
+        $response = $event->getControllerResult();
         if (!$response instanceof ResponseInterface) {
             return;
         }

@@ -69,7 +69,7 @@ class SignResponseSubscriber implements EventSubscriberInterface
 
     public function signPsrResponse(GetResponseForControllerResultEvent $event): void
     {
-        $response = $event->getResponse();
+        $response = $event->getControllerResult();
         if (!$response instanceof ResponseInterface) {
             return;
         }
