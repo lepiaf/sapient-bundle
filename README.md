@@ -25,3 +25,4 @@ You can check out this project and run demo locally [sapient-bundle-demo](https:
 ## Documentation
 
 Follow documentation [http://sapient-bundle.readthedocs.io/en/latest/](http://sapient-bundle.readthedocs.io/en/latest/)
+or `src/Resources/doc/index.rst`
