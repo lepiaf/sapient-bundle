@@ -22,37 +22,6 @@ Main abilities are:
 
 You can check out this project and run demo locally [sapient-bundle-demo](https://github.com/lepiaf/sapient-bundle-demo)
 
-## How to install for Symfony 4
+## Documentation
 
-If you use Symfony 4, a recipe exists and it will install all automatically.
-
-Follow instructions in [https://symfony.sh/r/github.com/symfony/recipes-contrib/355](https://symfony.sh/r/github.com/symfony/recipes-contrib/355)
-
-## How to install for Symfony below 4 or without recipe
-
-```bash
-composer require lepiaf/sapient-bundle
-```
-
-Enable bundle in you `AppKernel.php`
-
-```php
-<?php
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = array(
-            new lepiaf\SapientBundle\SapientBundle()
-        );
-        
-        return $bundles;
-    }
-}
-```
-
-Then run a command to generate key-pair and add config displayed in `config.yml`
-
-```bash
-bin/console sapient:configure
-```
+Follow documentation [http://sapient-bundle.readthedocs.io/en/latest/](http://sapient-bundle.readthedocs.io/en/latest/)
