@@ -45,6 +45,11 @@ class SapientExtension extends Extension
             if ($config['guzzle_middleware']['unseal']) {
                 $loader->load('guzzle_middleware/unseal_response.yml');
             }
+
+            if ($config['guzzle_middleware']['requester_name']) {
+                $container->setParameter('sapient.guzzle_middleware.requester_name', $config['guzzle_middleware']['requester_name']);
+                $loader->load('guzzle_middleware/requester_header.yml');
+            }
         }
     }
 }

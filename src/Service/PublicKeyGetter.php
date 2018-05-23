@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface;
 class PublicKeyGetter
 {
     public const HEADER_SIGNER = 'Sapient-Signer';
-    private const HEADER_REQUESTER = 'Sapient-Requester';
+    public const HEADER_REQUESTER = 'Sapient-Requester';
 
     /**
      * @var array

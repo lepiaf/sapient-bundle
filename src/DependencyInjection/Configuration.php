@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->booleanNode('unseal')->defaultFalse()->end()
                         ->booleanNode('verify')->defaultFalse()->end()
+                        ->scalarNode('requester_name')->defaultFalse()->end()
                     ->end()
                 ->end()
                 ->arrayNode('sealing_public_keys')
