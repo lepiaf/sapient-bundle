@@ -102,6 +102,7 @@ guzzle_middleware.verify
 
 If enable, it will activate Guzzle middleware that verify signature in response. By default it is disabled.
 
+Before enabling this option, you must configure verifying_public_keys_ array.
 
 .. sealing_public_keys:
 sealing_public_keys
