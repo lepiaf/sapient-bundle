@@ -16,6 +16,7 @@ Reference
         guzzle_middleware:
             unseal: boolean
             verify: boolean
+            requester_name: string
         sealing_public_keys:
             -
                 name: string
@@ -103,6 +104,16 @@ guzzle_middleware.verify
 If enable, it will activate Guzzle middleware that verify signature in response. By default it is disabled.
 
 Before enabling this option, you must configure verifying_public_keys_ array.
+
+.. guzzle_middleware.requester_name:
+guzzle_middleware.requester_name
+------------------------
+
+This Guzzle middleware will add a header ``Sapient-Requester`` automatically on each request. This
+header is used by recipient to choose the right key to encrypt response.
+
+It is optional but highly recommended. If not enable, you must add header manually in
+Guzzle client configuration.
 
 .. sealing_public_keys:
 sealing_public_keys
