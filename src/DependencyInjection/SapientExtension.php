@@ -50,6 +50,14 @@ class SapientExtension extends Extension
                 $container->setParameter('sapient.guzzle_middleware.requester_name', $config['guzzle_middleware']['requester_name']);
                 $loader->load('guzzle_middleware/requester_header.yml');
             }
+
+            if ($config['guzzle_middleware']['sign_request']) {
+                if (!$config['sign']['enabled']) {
+                    throw new \LogicException('You must enable "sign" option before using "sign_request" feature.');
+                }
+
+                $loader->load('guzzle_middleware/sign_request.yml');
+            }
         }
     }
 }
