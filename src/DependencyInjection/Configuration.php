@@ -53,6 +53,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->booleanNode('verify_request')->defaultFalse()->end()
             ->end()
         ;
 

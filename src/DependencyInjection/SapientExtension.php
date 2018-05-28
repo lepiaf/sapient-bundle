@@ -37,6 +37,11 @@ class SapientExtension extends Extension
             $container->setParameter('sapient.sign.name', $config['sign']['name']);
         }
 
+        if ($config['verify_request']) {
+            $loader->load('verify_request.yml');
+
+        }
+
         if ($config['guzzle_middleware']['enabled']) {
             if ($config['guzzle_middleware']['verify']) {
                 $loader->load('guzzle_middleware/verify_response.yml');
