@@ -77,4 +77,27 @@ class PublicKeyGetter
 
         throw new NoKeyFoundForRequesterException('Verifying key not found.');
     }
+
+    /**
+     * @param ResponseInterface $response
+     *
+     * @return string
+     *
+     * @throws SignerHeaderMissingException
+     * @throws NoKeyFoundForRequesterException
+     */
+    public function getRequestVerifyingKey(RequestInterface $request): string
+    {
+        if (!$request->hasHeader(self::HEADER_REQUESTER) || 0 === \count($request->getHeader(self::HEADER_REQUESTER))) {
+            throw new SignerHeaderMissingException(sprintf('%s header is missing.', self::HEADER_REQUESTER));
+        }
+
+        foreach ($this->verifyingPublicKeys as $verifyingPublicKeys) {
+            if ($request->getHeader(self::HEADER_REQUESTER)[0] === $verifyingPublicKeys['name']) {
+                return $verifyingPublicKeys['key'];
+            }
+        }
+
+        throw new NoKeyFoundForRequesterException('Verifying key not found for requester.');
+    }
 }
