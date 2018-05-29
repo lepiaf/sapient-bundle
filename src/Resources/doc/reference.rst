@@ -16,6 +16,7 @@ Reference
         guzzle_middleware:
             unseal: boolean
             verify: boolean
+            sign_request: boolean
             requester_name: string
         sealing_public_keys:
             -
@@ -25,6 +26,7 @@ Reference
             -
                 name: string
                 key: string
+        verify_request: boolean
 
 Above, you have full configuration reference.
 
@@ -115,6 +117,12 @@ header is used by recipient to choose the right key to encrypt response.
 It is optional but highly recommended. If not enable, you must add header manually in
 Guzzle client configuration.
 
+.. guzzle_middleware.sign_request:
+guzzle_middleware.sign_request
+------------------------------
+
+If enable, it will activate Guzzle middleware that sign all request. By default it is disabled.
+
 .. sealing_public_keys:
 sealing_public_keys
 -------------------
@@ -145,3 +153,11 @@ Each item must contain a `key` and a `name`. `name` must match header value `Sap
             -
                 name: "api-alice"
                 key: "verifying public key of api-alice"
+
+.. verify_request:
+verify_request
+--------------
+
+Each request received by HttpKernel will enter in subscriber that verify signature. It
+check ``Sapient-Requester`` header and fetch the public key in **verifying public keys** array.
+If found, then it verify signature. If signature is invalid, an ``InvalidMessageException`` is raised.

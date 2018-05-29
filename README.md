@@ -14,9 +14,10 @@ Sapient allows you to quickly and easily add application-layer cryptography to y
 This bundle wrap this toolkit and integrate it in Symfony in an easy way.
 
 Main abilities are:
-* Sign response
-* Seal response
-* Verify a response from another API
+* Sign and verify response
+* Seal and unseal response
+* Sign and verify request
+* Seal and unseal request (coming on 0.2.0)
 
 ## Demo
 
