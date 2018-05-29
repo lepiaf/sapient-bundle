@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->booleanNode('unseal')->defaultFalse()->end()
                         ->booleanNode('verify')->defaultFalse()->end()
+                        ->booleanNode('sign_request')->defaultFalse()->end()
                         ->scalarNode('requester_name')->defaultFalse()->end()
                     ->end()
                 ->end()
@@ -52,6 +53,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->booleanNode('verify_request')->defaultFalse()->end()
             ->end()
         ;
 
