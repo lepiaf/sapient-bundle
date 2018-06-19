@@ -2,19 +2,25 @@
 
 namespace Tests\lepiaf\SapientBundle\EventSubscriber;
 
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\ServerRequest;
+use lepiaf\SapientBundle\EventSubscriber\UnsealRequestSubscriber;
 use lepiaf\SapientBundle\EventSubscriber\VerifyRequestSubscriber;
 use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
+use ParagonIE\Sapient\CryptographyKeys\SealingPublicKey;
+use ParagonIE\Sapient\CryptographyKeys\SealingSecretKey;
+use ParagonIE\Sapient\CryptographyKeys\SigningPublicKey;
 use ParagonIE\Sapient\CryptographyKeys\SigningSecretKey;
 use ParagonIE\Sapient\Sapient;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class VerifyRequestSubscriberTest extends TestCase
+class UnsealRequestSubscriberTest extends TestCase
 {
     /**
      * @var HttpFoundationFactory
@@ -35,20 +41,25 @@ class VerifyRequestSubscriberTest extends TestCase
 
     public function setUp()
     {
-        $keyPair = SigningSecretKey::generate();
+        $keyPair = SealingSecretKey::generate();
         $this->publicKey = $keyPair->getPublickey()->getString();
         $this->privateKey = $keyPair->getString();
 
         $this->httpFoundationFactory = new HttpFoundationFactory();
         $this->diactorosFactory = new DiactorosFactory();
         $this->sapient = new Sapient();
-        $this->publicKeyGetter = new PublicKeyGetter([], [['host' => 'client-bob', 'key' => $this->publicKey]]);
+        $this->publicKeyGetter = new PublicKeyGetter([], [['name' => 'client-bob', 'key' => $this->publicKey]]);
     }
 
-    public function testVerifyRequest()
+    public function testUnsealRequest()
     {
-        $psrRequest = new ServerRequest('GET', 'http://api.example.com/api/ping', ['Sapient-Requester' => ['client-bob']]);
-        $psrRequestSigned = $this->sapient->signRequest($psrRequest, new SigningSecretKey(Base64UrlSafe::decode($this->privateKey)));
+        $psrRequest = new ServerRequest(
+            'POST',
+            'http://api.example.com/api/ping',
+            ['Sapient-Requester' => ['client-bob']],
+            'hello world'
+        );
+        $psrRequestSigned = $this->sapient->sealRequest($psrRequest, new SealingPublicKey(Base64UrlSafe::decode($this->publicKey)));
 
         $request = $this->httpFoundationFactory->createRequest($psrRequestSigned);
         $event = new GetResponseEvent(
@@ -57,27 +68,28 @@ class VerifyRequestSubscriberTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $subscriber = new VerifyRequestSubscriber(
-            $this->diactorosFactory,
+        $subscriber = new UnsealRequestSubscriber(
             $this->sapient,
-            $this->publicKeyGetter
+            $this->diactorosFactory,
+            $this->privateKey
         );
-        $subscriber->verifyRequest($event);
+        $subscriber->unsealRequest($event);
 
         $this->assertInstanceOf(\Symfony\Component\HttpFoundation\Request::class, $event->getRequest());
+        $this->assertSame('hello world', $event->getRequest()->getContent());
     }
 
     /**
-     * @expectedException \ParagonIE\Sapient\Exception\InvalidMessageException
-     * @expectedExceptionMessage No valid signature given for this HTTP request
+     * @expectedException \SodiumException
+     * @expectedExceptionMessage Invalid MAC
      */
-    public function testVerifyRequestFail()
+    public function testUnsealRequestFail()
     {
-        $otherSigningKey = SigningSecretKey::generate();
-        $otherSigningKeyPrivate = $otherSigningKey->getString();
+        $otherSealingKey = SealingSecretKey::generate();
+        $otherSealingKeyPrivate = $otherSealingKey->getString();
 
         $psrRequest = new ServerRequest('GET', 'http://api.example.com/api/ping', ['Sapient-Requester' => ['client-bob']]);
-        $psrRequestSigned = $this->sapient->signRequest($psrRequest, new SigningSecretKey(Base64UrlSafe::decode($otherSigningKeyPrivate)));
+        $psrRequestSigned = $this->sapient->sealRequest($psrRequest, new SealingPublicKey(Base64UrlSafe::decode($otherSealingKeyPrivate)));
 
         $request = $this->httpFoundationFactory->createRequest($psrRequestSigned);
         $event = new GetResponseEvent(
@@ -86,20 +98,18 @@ class VerifyRequestSubscriberTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $subscriber = new VerifyRequestSubscriber(
-            $this->diactorosFactory,
+        $subscriber = new UnsealRequestSubscriber(
             $this->sapient,
-            $this->publicKeyGetter
+            $this->diactorosFactory,
+            $this->privateKey
         );
-        $subscriber->verifyRequest($event);
-
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\Request::class, $event->getRequest());
+        $subscriber->unsealRequest($event);
     }
 
     public function testSubscriberRegistration()
     {
         $this->assertSame([
-            'kernel.request' => ['verifyRequest', -110],
-        ], VerifyRequestSubscriber::getSubscribedEvents());
+            'kernel.request' => ['unsealRequest', -100],
+        ], UnsealRequestSubscriber::getSubscribedEvents());
     }
 }
