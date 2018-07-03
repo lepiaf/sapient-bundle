@@ -40,6 +40,26 @@ class PublicKeyGetter
      * @throws RequesterHeaderMissingException
      * @throws NoKeyFoundForRequesterException
      */
+    public function getSealingKeyFromHost(RequestInterface $request): string
+    {
+        $host = $request->getUri()->getHost();
+        foreach ($this->sealingPublicKeys as $sealingPublicKey) {
+            if ($request->getHeader(self::HEADER_REQUESTER)[0] === $host) {
+                return $sealingPublicKey['key'];
+            }
+        }
+
+        throw new NoKeyFoundForRequesterException('Sealing key not found.');
+    }
+
+    /**
+     * @param RequestInterface $request
+     *
+     * @return string
+     *
+     * @throws RequesterHeaderMissingException
+     * @throws NoKeyFoundForRequesterException
+     */
     public function getSealingKey(RequestInterface $request): string
     {
         if (!$request->hasHeader(self::HEADER_REQUESTER) || 0 === \count($request->getHeader(self::HEADER_REQUESTER))) {

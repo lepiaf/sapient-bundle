@@ -2,16 +2,13 @@
 
 namespace Tests\lepiaf\SapientBundle\EventSubscriber;
 
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\ServerRequest;
 use lepiaf\SapientBundle\EventSubscriber\VerifyRequestSubscriber;
 use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
-use ParagonIE\Sapient\CryptographyKeys\SigningPublicKey;
 use ParagonIE\Sapient\CryptographyKeys\SigningSecretKey;
 use ParagonIE\Sapient\Sapient;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -45,7 +42,7 @@ class VerifyRequestSubscriberTest extends TestCase
         $this->httpFoundationFactory = new HttpFoundationFactory();
         $this->diactorosFactory = new DiactorosFactory();
         $this->sapient = new Sapient();
-        $this->publicKeyGetter = new PublicKeyGetter([], [['name' => 'client-bob', 'key' => $this->publicKey]]);
+        $this->publicKeyGetter = new PublicKeyGetter([], [['host' => 'client-bob', 'key' => $this->publicKey]]);
     }
 
     public function testVerifyRequest()

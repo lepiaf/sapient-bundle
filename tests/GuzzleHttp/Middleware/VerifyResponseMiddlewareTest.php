@@ -6,18 +6,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use lepiaf\SapientBundle\GuzzleHttp\Middleware\SignRequestMiddleware;
-use lepiaf\SapientBundle\GuzzleHttp\Middleware\UnsealResponseMiddleware;
 use lepiaf\SapientBundle\GuzzleHttp\Middleware\VerifyResponseMiddleware;
 use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
-use ParagonIE\Sapient\CryptographyKeys\SealingPublicKey;
-use ParagonIE\Sapient\CryptographyKeys\SealingSecretKey;
-use ParagonIE\Sapient\CryptographyKeys\SigningPublicKey;
 use ParagonIE\Sapient\CryptographyKeys\SigningSecretKey;
 use ParagonIE\Sapient\Sapient;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\RequestInterface;
 
 class VerifyResponseMiddlewareTest extends TestCase
 {
@@ -41,7 +35,7 @@ class VerifyResponseMiddlewareTest extends TestCase
         $this->publicKey = $keyPair->getPublickey()->getString();
 
         $this->sapient = new Sapient();
-        $this->publicKeyGetter = new PublicKeyGetter([], [['name' => 'api-alice', 'key' => $this->publicKey]]);
+        $this->publicKeyGetter = new PublicKeyGetter([], [['host' => 'api-alice', 'key' => $this->publicKey]]);
     }
 
     public function testVerifyResponse()
