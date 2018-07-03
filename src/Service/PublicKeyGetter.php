@@ -42,7 +42,7 @@ class PublicKeyGetter
     {
         $host = $request->getUri()->getHost();
         foreach ($this->sealingPublicKeys as $sealingPublicKey) {
-            if ($request->getHeader(self::HEADER_REQUESTER)[0] === $host) {
+            if ($sealingPublicKey['host'] === $host) {
                 return $sealingPublicKey['key'];
             }
         }
