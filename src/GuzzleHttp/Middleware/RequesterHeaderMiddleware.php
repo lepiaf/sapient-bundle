@@ -11,21 +11,18 @@ class RequesterHeaderMiddleware
     /**
      * @var string
      */
-    private $requesterName;
+    private $requesterHost;
 
-    /**
-     * @param string $requesterName
-     */
-    public function __construct(string $requesterName)
+    public function __construct(string $requesterHost)
     {
-        $this->requesterName = $requesterName;
+        $this->requesterHost = $requesterHost;
     }
 
     public function __invoke(callable $handler): callable
     {
         return function(RequestInterface $request, array $options) use ($handler) {
             return $handler(
-                $request->withHeader(PublicKeyGetter::HEADER_REQUESTER, $this->requesterName),
+                $request->withHeader(PublicKeyGetter::HEADER_REQUESTER, $this->requesterHost),
                 $options
             );
         };

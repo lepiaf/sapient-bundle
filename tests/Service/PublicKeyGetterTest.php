@@ -13,7 +13,7 @@ class PublicKeyGetterTest extends TestCase
     {
         $publicKeyGetter = new PublicKeyGetter(
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ],
             []
         );
@@ -31,7 +31,7 @@ class PublicKeyGetterTest extends TestCase
     {
         $publicKeyGetter = new PublicKeyGetter(
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ],
             []
         );
@@ -48,7 +48,7 @@ class PublicKeyGetterTest extends TestCase
     {
         $publicKeyGetter = new PublicKeyGetter(
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ],
             []
         );
@@ -66,7 +66,7 @@ class PublicKeyGetterTest extends TestCase
     {
         $publicKeyGetter = new PublicKeyGetter(
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ],
             []
         );
@@ -82,7 +82,7 @@ class PublicKeyGetterTest extends TestCase
         $publicKeyGetter = new PublicKeyGetter(
             [],
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ]
         );
 
@@ -100,7 +100,7 @@ class PublicKeyGetterTest extends TestCase
         $publicKeyGetter = new PublicKeyGetter(
             [],
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ]
         );
 
@@ -117,7 +117,7 @@ class PublicKeyGetterTest extends TestCase
         $publicKeyGetter = new PublicKeyGetter(
             [],
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ]
         );
 
@@ -135,7 +135,7 @@ class PublicKeyGetterTest extends TestCase
         $publicKeyGetter = new PublicKeyGetter(
             [],
             [
-                ['name' => 'foo', 'key' => 'bar']
+                ['host' => 'foo', 'key' => 'bar']
             ]
         );
 

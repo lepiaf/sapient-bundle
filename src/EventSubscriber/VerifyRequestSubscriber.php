@@ -58,6 +58,6 @@ class VerifyRequestSubscriber implements EventSubscriberInterface
     {
         $psrRequest = $this->diactorosFactory->createRequest($request);
 
-        return $this->publicKeyGetter->getRequestVerifyingKey($psrRequest);
+        return $this->publicKeyGetter->getVerifyingKeyFromRequest($psrRequest);
     }
 }

@@ -1,6 +1,6 @@
 services:
   lepiaf\SapientBundle\GuzzleHttp\Middleware\RequesterHeaderMiddleware:
     arguments:
-      - '%sapient.guzzle_middleware.requester_name%'
+      - '%sapient.guzzle_middleware.requester_host%'
     tags:
       - { name: 'csa_guzzle.middleware', alias: 'requester_name' }

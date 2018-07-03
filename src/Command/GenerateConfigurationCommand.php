@@ -28,7 +28,7 @@ sapient:
     sign:
         public: '{$signingKey->getPublickey()->getString()}'
         private: '{$signingKey->getString()}'
-        name: 'signer-name'
+        host: ~
     seal:
         public: '{$sealKey->getPublickey()->getString()}'
         private: '{$sealKey->getString()}'
