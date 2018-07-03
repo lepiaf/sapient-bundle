@@ -37,9 +37,12 @@ class SapientExtension extends Extension
             $container->setParameter('sapient.sign.host', $config['sign']['host']);
         }
 
+        if ($config['unseal_request']) {
+            $loader->load('unseal_request.yml');
+        }
+
         if ($config['verify_request']) {
             $loader->load('verify_request.yml');
-
         }
 
         if ($config['guzzle_middleware']['enabled']) {
@@ -62,6 +65,14 @@ class SapientExtension extends Extension
                 }
 
                 $loader->load('guzzle_middleware/sign_request.yml');
+            }
+
+            if ($config['guzzle_middleware']['seal_request']) {
+                if (!$config['seal']['enabled']) {
+                    throw new \LogicException('You must enable "seal" option before using "sign_request" feature.');
+                }
+
+                $loader->load('guzzle_middleware/seal_request.yml');
             }
         }
     }

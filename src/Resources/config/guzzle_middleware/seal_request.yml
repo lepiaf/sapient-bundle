@@ -1,0 +1,7 @@
+services:
+  lepiaf\SapientBundle\GuzzleHttp\Middleware\SealRequestMiddleware:
+    arguments:
+      - '@ParagonIE\Sapient\Sapient'
+      - '@lepiaf\SapientBundle\Service\PublicKeyGetter'
+    tags:
+      - { name: 'csa_guzzle.middleware', alias: 'seal_request', priority: 0 }

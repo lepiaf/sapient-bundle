@@ -4,4 +4,4 @@ services:
       - '@ParagonIE\Sapient\Sapient'
       - '%sapient.sign.private%'
     tags:
-      - { name: 'csa_guzzle.middleware', alias: 'sign_request' }
+      - { name: 'csa_guzzle.middleware', alias: 'sign_request', priority: 1 }

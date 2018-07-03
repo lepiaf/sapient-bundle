@@ -40,16 +40,16 @@ class VerifyRequestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => 'verifyRequest',
+            KernelEvents::REQUEST => ['verifyRequest', -110],
         ];
     }
 
     public function verifyRequest(GetResponseEvent $event): void
     {
         $publicKey = $this->getVerifyingKey($event->getRequest());
-        $psrResponse = $this->diactorosFactory->createRequest($event->getRequest());
+        $psrRequest = $this->diactorosFactory->createRequest($event->getRequest());
         $this->sapient->verifySignedRequest(
-            $psrResponse,
+            $psrRequest,
             new SigningPublicKey(Base64UrlSafe::decode($publicKey))
         );
     }

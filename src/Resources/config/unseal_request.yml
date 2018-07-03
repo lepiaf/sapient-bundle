@@ -1,0 +1,8 @@
+services:
+  lepiaf\SapientBundle\EventSubscriber\UnsealRequestSubscriber:
+    arguments:
+      - '@ParagonIE\Sapient\Sapient'
+      - '@Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory'
+      - '%sapient.seal.private%'
+    tags:
+      - { name: kernel.event_subscriber }
