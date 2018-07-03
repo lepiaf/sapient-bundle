@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\Service;
 
-use lepiaf\SapientBundle\Exception\{
-    RequesterHeaderMissingException,
-    NoKeyFoundForRequesterException,
-    SignerHeaderMissingException
-};
+use lepiaf\SapientBundle\Exception\RequesterHeaderMissingException;
+use lepiaf\SapientBundle\Exception\NoKeyFoundForRequesterException;
+use lepiaf\SapientBundle\Exception\SignerHeaderMissingException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
