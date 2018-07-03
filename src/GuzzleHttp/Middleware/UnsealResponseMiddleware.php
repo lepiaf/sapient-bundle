@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\GuzzleHttp\Middleware;
 
@@ -11,7 +11,14 @@ use Psr\Http\Message\ResponseInterface;
 
 class UnsealResponseMiddleware
 {
+    /**
+     * @var Sapient
+     */
     private $sapient;
+
+    /**
+     * @var string
+     */
     private $privateKey;
 
     public function __construct(Sapient $sapient, string $privateKey)

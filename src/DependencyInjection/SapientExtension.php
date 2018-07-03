@@ -34,7 +34,7 @@ class SapientExtension extends Extension
 
             $container->setParameter('sapient.sign.public', $config['sign']['public']);
             $container->setParameter('sapient.sign.private', $config['sign']['private']);
-            $container->setParameter('sapient.sign.name', $config['sign']['name']);
+            $container->setParameter('sapient.sign.host', $config['sign']['host']);
         }
 
         if ($config['verify_request']) {
@@ -51,8 +51,8 @@ class SapientExtension extends Extension
                 $loader->load('guzzle_middleware/unseal_response.yml');
             }
 
-            if ($config['guzzle_middleware']['requester_name']) {
-                $container->setParameter('sapient.guzzle_middleware.requester_name', $config['guzzle_middleware']['requester_name']);
+            if ($config['guzzle_middleware']['requester_host']) {
+                $container->setParameter('sapient.guzzle_middleware.requester_host', $config['guzzle_middleware']['requester_host']);
                 $loader->load('guzzle_middleware/requester_header.yml');
             }
 

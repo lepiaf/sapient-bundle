@@ -47,7 +47,7 @@ class PublicKeyGetter
         }
 
         foreach ($this->sealingPublicKeys as $sealingPublicKey) {
-            if ($request->getHeader(self::HEADER_REQUESTER)[0] === $sealingPublicKey['name']) {
+            if ($request->getHeader(self::HEADER_REQUESTER)[0] === $sealingPublicKey['host']) {
                 return $sealingPublicKey['key'];
             }
         }
@@ -70,7 +70,7 @@ class PublicKeyGetter
         }
 
         foreach ($this->verifyingPublicKeys as $verifyingPublicKeys) {
-            if ($response->getHeader(self::HEADER_SIGNER)[0] === $verifyingPublicKeys['name']) {
+            if ($response->getHeader(self::HEADER_SIGNER)[0] === $verifyingPublicKeys['host']) {
                 return $verifyingPublicKeys['key'];
             }
         }
@@ -79,21 +79,21 @@ class PublicKeyGetter
     }
 
     /**
-     * @param ResponseInterface $response
+     * @param RequestInterface $request
      *
      * @return string
      *
      * @throws SignerHeaderMissingException
      * @throws NoKeyFoundForRequesterException
      */
-    public function getRequestVerifyingKey(RequestInterface $request): string
+    public function getVerifyingKeyFromRequest(RequestInterface $request): string
     {
         if (!$request->hasHeader(self::HEADER_REQUESTER) || 0 === \count($request->getHeader(self::HEADER_REQUESTER))) {
             throw new SignerHeaderMissingException(sprintf('%s header is missing.', self::HEADER_REQUESTER));
         }
 
         foreach ($this->verifyingPublicKeys as $verifyingPublicKeys) {
-            if ($request->getHeader(self::HEADER_REQUESTER)[0] === $verifyingPublicKeys['name']) {
+            if ($request->getHeader(self::HEADER_REQUESTER)[0] === $verifyingPublicKeys['host']) {
                 return $verifyingPublicKeys['key'];
             }
         }
