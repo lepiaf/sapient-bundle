@@ -30,7 +30,7 @@ class SealRequestMiddleware
     public function __invoke(callable $handler): callable
     {
         return function(RequestInterface $request, array $options) use ($handler) {
-            $publicKey = $this->publicKeyGetter->getSealingKey($request);
+            $publicKey = $this->publicKeyGetter->getSealingKeyFromHost($request);
 
             return $handler(
                 $this->sapient->sealRequest($request, new SealingPublicKey(Base64UrlSafe::decode($publicKey))),

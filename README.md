@@ -17,7 +17,7 @@ Main abilities are:
 * Sign and verify response
 * Seal and unseal response
 * Sign and verify request
-* Seal and unseal request (coming on 0.2.0)
+* Seal and unseal request
 
 ## Demo
 
