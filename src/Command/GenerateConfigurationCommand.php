@@ -23,7 +23,8 @@ class GenerateConfigurationCommand extends Command
     {
         $signingKey = SigningSecretKey::generate();
         $sealKey = SealingSecretKey::generate();
-        $output->write(<<<CONFIG
+        $output->writeln('Copy generated configuration below into sapient.yml configuration file.');
+        $output->writeln(<<<CONFIG
 sapient:
     sign:
         public: '{$signingKey->getPublickey()->getString()}'
