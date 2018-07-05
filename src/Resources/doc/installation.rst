@@ -4,27 +4,24 @@ Installation
 Before starting installation, your application must have PHP 7.2 minimum. This bundle use Sapient library
 which require `libsodium` extension. Symfony 3.4 and Synfony 4 are supported.
 
-.. _symfony4_without_recipe:
-Symfony 4 without recipe
+.. _symfony4_with_recipe:
+Symfony 4 with recipe
 ------------------------
 
-As usual, install it via composer
+A recipe has been created for this bundle.
+
+Enable contrib repository in composer.
+
+.. code-block:: bash
+
+    composer config extra.symfony.allow-contrib true
 
 .. code-block:: bash
 
     composer install lepiaf/sapient-bundle
 
-Enable it in `config/bundles.yml`
-
-.. code-block:: php
-
-    <?php
-
-    return [
-        lepiaf\SapientBundle\SapientBundle::class => ['all' => true],
-    ];
-
-Now bundle is registered. You can run command to generate default configuration.
+By default, recipe will enable and generate a minimal config file. You have to run a command to initialize
+configuration.
 
 .. code-block:: bash
 
@@ -47,15 +44,28 @@ It will output configuration. Copy and paste it to `config/packages/sapient.yml`
 
 Now your api is ready. Repeat this process with a client.
 
-.. _symfony4_with_recipe:
-Symfony 4 with recipe
+
+.. _symfony4_without_recipe:
+Symfony 4 without recipe
 ------------------------
 
-A recipe has been created for this bundle but it is not yet merged in master. You can follow instructions
-here: `https://symfony.sh/r/github.com/symfony/recipes-contrib/355 <https://symfony.sh/r/github.com/symfony/recipes-contrib/355>`_
+As usual, install it via composer
 
-By default, recipe will enable and generate a minimal config file. You have to run a command to initialize
-configuration.
+.. code-block:: bash
+
+    composer install lepiaf/sapient-bundle
+
+Enable it in `config/bundles.yml`
+
+.. code-block:: php
+
+    <?php
+
+    return [
+        lepiaf\SapientBundle\SapientBundle::class => ['all' => true],
+    ];
+
+Now bundle is registered. You can run command to generate default configuration.
 
 .. code-block:: bash
 

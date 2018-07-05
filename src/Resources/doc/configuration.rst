@@ -175,3 +175,10 @@ your controller/service will use data as usual. Else it will raise an exception.
 
 To get more information, check `library documentation <https://github.com/paragonie/sapient>`_. Sapient is available
 in container and you can use more functionality.
+
+Sign and seal request
+----------------------
+
+To complete our usecase above, we can sign and seal request to api. Then, we have a full confidentiality
+on request made to api.
+
