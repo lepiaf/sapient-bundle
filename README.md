@@ -7,9 +7,13 @@
 
 [Sapient](https://github.com/paragonie/sapient) is a toolkit to secure API exchange. 
 
-```text
+HTTPS encrypts the transmission channel and its content indirectly. But there is one weak link in 
+this process: the certification authority. This organization, in charge of providing certificates, 
+can be attacked, and fake certificates can be generated to divert traffic to the attacker's server.
+
 Sapient allows you to quickly and easily add application-layer cryptography to your API requests and responses.
-```
+
+![Full use case](src/Resources/doc/images/sapient-workflow.jpg)
 
 This bundle wrap this toolkit and integrate it in Symfony in an easy way.
 
