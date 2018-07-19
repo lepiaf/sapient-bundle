@@ -234,7 +234,30 @@ As we use Guzzle, you can enable an option to automatically sign and seal all re
                 key: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
                 host: 'api-alice'
 
-We have to exchange public key. API Alice must send his seal public key to Client Bob. And Client Bob
+Now we have request signed and sealed. But API Alice will not understand it. We need to enable options
+in API Alice configuration and exchange keys.
+
+There are 2 options: ``verify_request`` and ``unseal_request``. Enable it.
+
+.. code-block:: yaml
+
+    sapient:
+        sign:
+            public: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
+            private: 'giP81DlS_R3JL4-UnSVbn2I5lm9abv8vA7aLuEdOUB4bfOjlm5vaj57Kn6DcZhv0lcTN20iqYV0M69Tk9XqEGQ=='
+            host: 'api-alice'
+        seal:
+            public: 'tquhje8C_hNdd85R-CzVq7n7MOLqc5h11GJv7Vo7fgc='
+            private: 'NoxnlCvhxl8NRfCgIhuxm95IE1Y9QFUHMuvDkrWrnQ4='
+        sealing_public_keys:
+            -
+                host: 'client-bob'
+                key: 'M2SMMPHg9NOXoX3NgzlWY8iTheyu8qSovnTZpAlIGB0='
+        verifying_public_keys: ~
+        verify_request: true
+        unseal_request: true
+
+Then, we have to exchange public key. API Alice must send his seal public key to Client Bob. And Client Bob
 must send his sign public key to API Alice.
 
 In Client Bob configuration, we must have:
@@ -284,5 +307,7 @@ In API Alice configuration, we must have:
             -
                 host: 'client-bob'
                 key: 'aO8pIZYoGUrPOSJFC1UfH-XE7M19xC-LP-tZwukwFqI='
+        verify_request: true
+        unseal_request: true
 
 Now you are fully configured !
