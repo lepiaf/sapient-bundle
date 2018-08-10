@@ -1,13 +1,19 @@
 Configuration
 =============
 
-We will see 2 differents uses case:
+We will see 3 differents uses case:
 
 * Sign only response of your API. Each client are free to check signature.
-* Sign and seal response. Only the client who did request can decrypt content of response and can verify the signature.
+* Sign and seal response. Only the client who did request can unseal content of response and can verify the signature.
+* Sign and seal request. Only API can unseal content of request and can verify the signature.
 
 Before diving deep, let assume we have an API Alice and a client Bob. API Alice and client Bob have a key pair to sign
 and seal (see :doc:`installation` part). Client Bob will do request to API Alice in order to get some information.
+
+.. note::
+
+    To use this bundle, you need to have basic understand of cryptography and asymmetric encryption.
+
 
 .. _sign-response-only:
 
@@ -95,10 +101,10 @@ an exception will raise. It can be a misconfiguration or an man-in-the-middle.
 Sign and seal response
 ----------------------
 
-This is the most usefull usecase. It sign and seal the response. Only the requester can decrypt the
-content of the response. It use ``XChaCha20-Poly1305`` algorithm to encrypt and ``ED25519`` for signature.
+This is the most usefull usecase. It sign and seal the response. Only the requester can unseal the
+content of the response. It use ``XChaCha20-Poly1305`` algorithm to seal and ``ED25519`` for signature.
 
-Follow part :ref:`sign-response-only` first. In this part, we will configure API Alice to encrypt response
+Follow part :ref:`sign-response-only` first. In this part, we will configure API Alice to seal response
 for client Bob.
 
 In client Bob configuration file, generate a seal key pair. You can do it easily with ``bin/console sapient:configure``.
@@ -122,8 +128,8 @@ Copy and paste sign and seal part.
                 key: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
                 host: 'api-alice'
 
-As mentioned in introduction of this part, API Alice will encrypt response. Client Bob use guzzle and Sapient bundle
-has a middlware to decrypt response. Enable it.
+As mentioned in introduction of this part, API Alice will seal response. Client Bob use guzzle and Sapient bundle
+has a middlware to unseal response. Enable it.
 
 .. code-block:: yaml
 
@@ -190,8 +196,8 @@ In API Alice, add seal public key of client Bob in ``sealing_public_keys`` confi
 
 Configuration is done for API Alice.
 
-Every time client Bob will request API Alice, API Alice will encrypt and sign response. Then, client
-Bob receive response and pass to Guzzle middleware. It decrypt and verify signature. If everything is ok,
+Every time client Bob will request API Alice, API Alice will seal and sign response. Then, client
+Bob receive response and pass to Guzzle middleware. It unseal and verify signature. If everything is ok,
 your controller/service will use data as usual. Else it will raise an exception.
 
 To get more information, check `library documentation <https://github.com/paragonie/sapient>`_. Sapient is available
