@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\DependencyInjection;
 
+use lepiaf\SapientBundle\Exception\ConfigurationRequiredException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -22,35 +23,51 @@ class SapientExtension extends Extension
         $container->setParameter('sapient.sealing_public_keys', $config['sealing_public_keys']);
         $container->setParameter('sapient.verifying_public_keys', $config['verifying_public_keys']);
 
-        if ($config['seal']['enabled']) {
-            $loader->load('seal.yml');
+        $this->loadSignCapability($config, $loader, $container);
+        $this->loadSealCapability($config, $loader, $container);
+        $this->loadGuzzleMiddlewareCapability($config, $loader, $container);
+        $this->loadVerifyRequestCapability($config, $loader);
+        $this->loadUnsealRequestCapability($config, $loader);
+    }
 
-            $container->setParameter('sapient.seal.public', $config['seal']['public']);
-            $container->setParameter('sapient.seal.private', $config['seal']['private']);
-        }
-
+    private function loadSignCapability(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
+    {
         if ($config['sign']['enabled']) {
-            $loader->load('sign.yml');
-
             $container->setParameter('sapient.sign.public', $config['sign']['public']);
             $container->setParameter('sapient.sign.private', $config['sign']['private']);
             $container->setParameter('sapient.sign.host', $config['sign']['host']);
-        }
 
-        if ($config['unseal_request']) {
-            $loader->load('unseal_request.yml');
+            if ($config['sign']['response']) {
+                $loader->load('sign.yml');
+            }
         }
+    }
 
-        if ($config['verify_request']) {
-            $loader->load('verify_request.yml');
+    private function loadSealCapability(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
+    {
+        if ($config['seal']['enabled']) {
+            $container->setParameter('sapient.seal.public', $config['seal']['public']);
+            $container->setParameter('sapient.seal.private', $config['seal']['private']);
+            if ($config['seal']['response'] && (!$config['sign']['enabled'] || !$config['sign']['response'])) {
+                throw new ConfigurationRequiredException('You must enable "sign" option with "sign.response" as true before using "seal.response" feature.');
+            }
+
+            $loader->load('seal.yml');
         }
+    }
 
+    private function loadGuzzleMiddlewareCapability(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
+    {
         if ($config['guzzle_middleware']['enabled']) {
             if ($config['guzzle_middleware']['verify']) {
                 $loader->load('guzzle_middleware/verify_response.yml');
             }
 
             if ($config['guzzle_middleware']['unseal']) {
+                if (!$config['seal']['enabled'] || !$config['seal']['private']) {
+                    throw new ConfigurationRequiredException('You must enable "seal" option and configure a "seal.private" key before using "guzzle_middleware.unseal" feature.');
+                }
+
                 $loader->load('guzzle_middleware/unseal_response.yml');
             }
 
@@ -61,7 +78,7 @@ class SapientExtension extends Extension
 
             if ($config['guzzle_middleware']['sign_request']) {
                 if (!$config['sign']['enabled']) {
-                    throw new \LogicException('You must enable "sign" option before using "sign_request" feature.');
+                    throw new ConfigurationRequiredException('You must enable "sign" option and configure a "sign.private" key before using "guzzle_middleware.sign_request" feature.');
                 }
 
                 $loader->load('guzzle_middleware/sign_request.yml');
@@ -69,11 +86,32 @@ class SapientExtension extends Extension
 
             if ($config['guzzle_middleware']['seal_request']) {
                 if (!$config['seal']['enabled']) {
-                    throw new \LogicException('You must enable "seal" option before using "sign_request" feature.');
+                    throw new ConfigurationRequiredException('You must enable "seal" option and configure a "seal.private" key before using "guzzle_middleware.seal_request" feature.');
                 }
 
+                if (!$config['guzzle_middleware']['sign_request']) {
+                    throw new ConfigurationRequiredException('You must enable "guzzle_middleware.sign_request" option before using "guzzle_middleware.seal_request" feature.');
+                }
                 $loader->load('guzzle_middleware/seal_request.yml');
             }
+        }
+    }
+
+    private function loadUnsealRequestCapability(array $config, YamlFileLoader $loader): void
+    {
+        if ($config['unseal_request']) {
+            if (!$config['seal']['enabled']) {
+                throw new ConfigurationRequiredException('You must enable "seal" option before using "unseal_request" feature.');
+            }
+
+            $loader->load('unseal_request.yml');
+        }
+    }
+
+    private function loadVerifyRequestCapability(array $config, YamlFileLoader $loader): void
+    {
+        if ($config['verify_request']) {
+            $loader->load('verify_request.yml');
         }
     }
 }
