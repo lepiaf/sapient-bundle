@@ -23,14 +23,14 @@ class SapientExtension extends Extension
         $container->setParameter('sapient.sealing_public_keys', $config['sealing_public_keys']);
         $container->setParameter('sapient.verifying_public_keys', $config['verifying_public_keys']);
 
-        $this->loadSignCapability($config, $loader, $container);
-        $this->loadSealCapability($config, $loader, $container);
-        $this->loadGuzzleMiddlewareCapability($config, $loader, $container);
-        $this->loadVerifyRequestCapability($config, $loader);
-        $this->loadUnsealRequestCapability($config, $loader);
+        $this->loadSignConfiguration($config, $loader, $container);
+        $this->loadSealConfiguration($config, $loader, $container);
+        $this->loadGuzzleMiddlewareConfiguration($config, $loader, $container);
+        $this->loadVerifyRequestConfiguration($config, $loader);
+        $this->loadUnsealRequestConfiguration($config, $loader);
     }
 
-    private function loadSignCapability(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
+    private function loadSignConfiguration(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
     {
         if ($config['sign']['enabled']) {
             $container->setParameter('sapient.sign.public', $config['sign']['public']);
@@ -43,7 +43,7 @@ class SapientExtension extends Extension
         }
     }
 
-    private function loadSealCapability(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
+    private function loadSealConfiguration(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
     {
         if ($config['seal']['enabled']) {
             $container->setParameter('sapient.seal.public', $config['seal']['public']);
@@ -56,7 +56,7 @@ class SapientExtension extends Extension
         }
     }
 
-    private function loadGuzzleMiddlewareCapability(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
+    private function loadGuzzleMiddlewareConfiguration(array $config, YamlFileLoader $loader, ContainerBuilder $container): void
     {
         if ($config['guzzle_middleware']['enabled']) {
             if ($config['guzzle_middleware']['verify']) {
@@ -97,7 +97,7 @@ class SapientExtension extends Extension
         }
     }
 
-    private function loadUnsealRequestCapability(array $config, YamlFileLoader $loader): void
+    private function loadUnsealRequestConfiguration(array $config, YamlFileLoader $loader): void
     {
         if ($config['unseal_request']) {
             if (!$config['seal']['enabled']) {
@@ -108,7 +108,7 @@ class SapientExtension extends Extension
         }
     }
 
-    private function loadVerifyRequestCapability(array $config, YamlFileLoader $loader): void
+    private function loadVerifyRequestConfiguration(array $config, YamlFileLoader $loader): void
     {
         if ($config['verify_request']) {
             $loader->load('verify_request.yml');
