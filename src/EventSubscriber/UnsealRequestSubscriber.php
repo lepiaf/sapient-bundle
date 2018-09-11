@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\EventSubscriber;
 
+use lepiaf\SapientBundle\Exception\RequestDecodeException;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use ParagonIE\Sapient\CryptographyKeys\SealingSecretKey;
 use ParagonIE\Sapient\Sapient;
@@ -46,10 +47,14 @@ class UnsealRequestSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $psrRequest = $this->diactorosFactory->createRequest($request);
-        $unsealedPsrRequest = $this->sapient->unsealRequest(
-            $psrRequest,
-            new SealingSecretKey(Base64UrlSafe::decode($this->privateKey))
-        );
+        try {
+            $unsealedPsrRequest = $this->sapient->unsealRequest(
+                $psrRequest,
+                new SealingSecretKey(Base64UrlSafe::decode($this->privateKey))
+            );
+        } catch (\RangeException $rangeException) {
+            throw new RequestDecodeException('Request is not sealed. Cannot decode request');
+        }
 
         $request->initialize(
             $request->query->all(),

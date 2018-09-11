@@ -3,6 +3,6 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\Exception;
 
-class RequesterHeaderMissingException extends \OutOfBoundsException
+class RequesterHeaderMissingException extends OutOfBoundsException
 {
 }

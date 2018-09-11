@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\EventSubscriber;
 
+use lepiaf\SapientBundle\Exception\VerifySignatureException;
 use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use ParagonIE\Sapient\CryptographyKeys\SigningPublicKey;
@@ -48,10 +49,14 @@ class VerifyRequestSubscriber implements EventSubscriberInterface
     {
         $publicKey = $this->getVerifyingKey($event->getRequest());
         $psrRequest = $this->diactorosFactory->createRequest($event->getRequest());
-        $this->sapient->verifySignedRequest(
-            $psrRequest,
-            new SigningPublicKey(Base64UrlSafe::decode($publicKey))
-        );
+        try {
+            $this->sapient->verifySignedRequest(
+                $psrRequest,
+                new SigningPublicKey(Base64UrlSafe::decode($publicKey))
+            );
+        } catch (\SodiumException $sodiumException) {
+            throw new VerifySignatureException('Cannot verify signature in request.');
+        }
     }
 
     private function getVerifyingKey(Request $request): string

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\EventSubscriber;
 
+use lepiaf\SapientBundle\Exception\SignResponseException;
+use lepiaf\SapientBundle\Exception\WrongKeyException;
 use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use ParagonIE\Sapient\CryptographyKeys\SigningSecretKey;
@@ -79,7 +81,13 @@ class SignResponseSubscriber implements EventSubscriberInterface
 
     private function signResponse(ResponseInterface $response): Response
     {
-        $psrResponse = $this->sapient->signResponse($response, new SigningSecretKey(Base64UrlSafe::decode($this->signPrivateKey)));
+        try {
+            $psrResponse = $this->sapient->signResponse($response, new SigningSecretKey(Base64UrlSafe::decode($this->signPrivateKey)));
+        } catch (\RangeException $rangeException) {
+            throw new WrongKeyException($rangeException->getMessage());
+        } catch (\SodiumException $sodiumException) {
+            throw new SignResponseException('Cannot sign response.');
+        }
         $psrResponse = $psrResponse->withHeader(PublicKeyGetter::HEADER_SIGNER, $this->signerHost);
 
         return $this->httpFoundationFactory->createResponse($psrResponse);
