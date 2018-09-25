@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/thierry/Project/sapient-bundle/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href=".css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/style.css" rel="stylesheet" type="text/css">
+  <link href=".css/custom.css" rel="stylesheet" type="text/css">
+  <!--[if lt IE 9]>
+  <script src=".js/html5shiv.min.js"></script>
+  <script src=".js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="index.html">/home/thierry/Project/sapient-bundle/src</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="GuzzleHttp/Middleware/SealRequestMiddleware.php.html#12">lepiaf\SapientBundle\GuzzleHttp\Middleware\SealRequestMiddleware</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/PublicKeyGetter.php.html#12">lepiaf\SapientBundle\Service\PublicKeyGetter</a></td><td class="text-right">73%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Service/PublicKeyGetter.php.html#12">lepiaf\SapientBundle\Service\PublicKeyGetter</a></td><td class="text-right">26</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="GuzzleHttp/Middleware/SealRequestMiddleware.php.html#24"><abbr title="lepiaf\SapientBundle\GuzzleHttp\Middleware\SealRequestMiddleware::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GuzzleHttp/Middleware/SealRequestMiddleware.php.html#30"><abbr title="lepiaf\SapientBundle\GuzzleHttp\Middleware\SealRequestMiddleware::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/PublicKeyGetter.php.html#41"><abbr title="lepiaf\SapientBundle\Service\PublicKeyGetter::getSealingKeyFromHost">getSealingKeyFromHost</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/PublicKeyGetter.php.html#107"><abbr title="lepiaf\SapientBundle\Service\PublicKeyGetter::getVerifyingKeyFromRequest">getVerifyingKeyFromRequest</abbr></a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Service/PublicKeyGetter.php.html#41"><abbr title="lepiaf\SapientBundle\Service\PublicKeyGetter::getSealingKeyFromHost">getSealingKeyFromHost</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Service/PublicKeyGetter.php.html#107"><abbr title="lepiaf\SapientBundle\Service\PublicKeyGetter::getVerifyingKeyFromRequest">getVerifyingKeyFromRequest</abbr></a></td><td class="text-right">5</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.0.7</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.10-0ubuntu0.18.04.1</a> with <a href="https://xdebug.org/">Xdebug 2.6.0</a> and <a href="https://phpunit.de/">PHPUnit 7.3.1</a> at Tue Sep 25 6:52:45 UTC 2018.</small>
+    </p>
+   </footer>
+  </div>
+  <script src=".js/jquery.min.js" type="text/javascript"></script>
+  <script src=".js/bootstrap.min.js" type="text/javascript"></script>
+  <script src=".js/holder.min.js" type="text/javascript"></script>
+  <script src=".js/d3.min.js" type="text/javascript"></script>
+  <script src=".js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,1,0,0,17], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([3,0,0,0,0,0,0,1,0,0,0,38], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"DependencyInjection\/Configuration.php.html#9\">lepiaf\\SapientBundle\\DependencyInjection\\Configuration<\/a>"],[100,25,"<a href=\"DependencyInjection\/SapientExtension.php.html#12\">lepiaf\\SapientBundle\\DependencyInjection\\SapientExtension<\/a>"],[100,6,"<a href=\"EventSubscriber\/ExceptionSubscriber.php.html#15\">lepiaf\\SapientBundle\\EventSubscriber\\ExceptionSubscriber<\/a>"],[100,7,"<a href=\"EventSubscriber\/SealResponseSubscriber.php.html#20\">lepiaf\\SapientBundle\\EventSubscriber\\SealResponseSubscriber<\/a>"],[100,6,"<a href=\"EventSubscriber\/SignResponseSubscriber.php.html#19\">lepiaf\\SapientBundle\\EventSubscriber\\SignResponseSubscriber<\/a>"],[100,3,"<a href=\"EventSubscriber\/UnsealRequestSubscriber.php.html#14\">lepiaf\\SapientBundle\\EventSubscriber\\UnsealRequestSubscriber<\/a>"],[100,4,"<a href=\"EventSubscriber\/VerifyRequestSubscriber.php.html#16\">lepiaf\\SapientBundle\\EventSubscriber\\VerifyRequestSubscriber<\/a>"],[100,0,"<a href=\"Exception\/ConfigurationRequiredException.php.html#6\">lepiaf\\SapientBundle\\Exception\\ConfigurationRequiredException<\/a>"],[100,0,"<a href=\"Exception\/NoKeyFoundForRequesterException.php.html#6\">lepiaf\\SapientBundle\\Exception\\NoKeyFoundForRequesterException<\/a>"],[100,0,"<a href=\"Exception\/RequesterHeaderMissingException.php.html#6\">lepiaf\\SapientBundle\\Exception\\RequesterHeaderMissingException<\/a>"],[100,0,"<a href=\"Exception\/SignerHeaderMissingException.php.html#6\">lepiaf\\SapientBundle\\Exception\\SignerHeaderMissingException<\/a>"],[100,0,"<a href=\"Exception\/VerifyRequestException.php.html#6\">lepiaf\\SapientBundle\\Exception\\VerifyRequestException<\/a>"],[100,2,"<a href=\"GuzzleHttp\/Middleware\/RequesterHeaderMiddleware.php.html#9\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\RequesterHeaderMiddleware<\/a>"],[0,2,"<a href=\"GuzzleHttp\/Middleware\/SealRequestMiddleware.php.html#12\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\SealRequestMiddleware<\/a>"],[100,2,"<a href=\"GuzzleHttp\/Middleware\/SignRequestMiddleware.php.html#11\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\SignRequestMiddleware<\/a>"],[100,2,"<a href=\"GuzzleHttp\/Middleware\/UnsealResponseMiddleware.php.html#12\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\UnsealResponseMiddleware<\/a>"],[100,2,"<a href=\"GuzzleHttp\/Middleware\/VerifyResponseMiddleware.php.html#13\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\VerifyResponseMiddleware<\/a>"],[100,0,"<a href=\"SapientBundle.php.html#7\">lepiaf\\SapientBundle\\SapientBundle<\/a>"],[73.07692307692307,19,"<a href=\"Service\/PublicKeyGetter.php.html#12\">lepiaf\\SapientBundle\\Service\\PublicKeyGetter<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"DependencyInjection\/Configuration.php.html#11\">lepiaf\\SapientBundle\\DependencyInjection\\Configuration::getConfigTreeBuilder<\/a>"],[100,1,"<a href=\"DependencyInjection\/SapientExtension.php.html#14\">lepiaf\\SapientBundle\\DependencyInjection\\SapientExtension::load<\/a>"],[100,3,"<a href=\"DependencyInjection\/SapientExtension.php.html#33\">lepiaf\\SapientBundle\\DependencyInjection\\SapientExtension::loadSignConfiguration<\/a>"],[100,5,"<a href=\"DependencyInjection\/SapientExtension.php.html#46\">lepiaf\\SapientBundle\\DependencyInjection\\SapientExtension::loadSealConfiguration<\/a>"],[100,11,"<a href=\"DependencyInjection\/SapientExtension.php.html#64\">lepiaf\\SapientBundle\\DependencyInjection\\SapientExtension::loadGuzzleMiddlewareConfiguration<\/a>"],[100,3,"<a href=\"DependencyInjection\/SapientExtension.php.html#105\">lepiaf\\SapientBundle\\DependencyInjection\\SapientExtension::loadUnsealRequestConfiguration<\/a>"],[100,2,"<a href=\"DependencyInjection\/SapientExtension.php.html#116\">lepiaf\\SapientBundle\\DependencyInjection\\SapientExtension::loadVerifyRequestConfiguration<\/a>"],[100,1,"<a href=\"EventSubscriber\/ExceptionSubscriber.php.html#17\">lepiaf\\SapientBundle\\EventSubscriber\\ExceptionSubscriber::getSubscribedEvents<\/a>"],[100,5,"<a href=\"EventSubscriber\/ExceptionSubscriber.php.html#24\">lepiaf\\SapientBundle\\EventSubscriber\\ExceptionSubscriber::handleException<\/a>"],[100,1,"<a href=\"EventSubscriber\/SealResponseSubscriber.php.html#42\">lepiaf\\SapientBundle\\EventSubscriber\\SealResponseSubscriber::__construct<\/a>"],[100,1,"<a href=\"EventSubscriber\/SealResponseSubscriber.php.html#50\">lepiaf\\SapientBundle\\EventSubscriber\\SealResponseSubscriber::getSubscribedEvents<\/a>"],[100,1,"<a href=\"EventSubscriber\/SealResponseSubscriber.php.html#58\">lepiaf\\SapientBundle\\EventSubscriber\\SealResponseSubscriber::sealHttpFoundationResponse<\/a>"],[100,2,"<a href=\"EventSubscriber\/SealResponseSubscriber.php.html#65\">lepiaf\\SapientBundle\\EventSubscriber\\SealResponseSubscriber::sealPsrResponse<\/a>"],[100,1,"<a href=\"EventSubscriber\/SealResponseSubscriber.php.html#76\">lepiaf\\SapientBundle\\EventSubscriber\\SealResponseSubscriber::sealResponse<\/a>"],[100,1,"<a href=\"EventSubscriber\/SealResponseSubscriber.php.html#83\">lepiaf\\SapientBundle\\EventSubscriber\\SealResponseSubscriber::getSealingKey<\/a>"],[100,1,"<a href=\"EventSubscriber\/SignResponseSubscriber.php.html#46\">lepiaf\\SapientBundle\\EventSubscriber\\SignResponseSubscriber::__construct<\/a>"],[100,1,"<a href=\"EventSubscriber\/SignResponseSubscriber.php.html#55\">lepiaf\\SapientBundle\\EventSubscriber\\SignResponseSubscriber::getSubscribedEvents<\/a>"],[100,1,"<a href=\"EventSubscriber\/SignResponseSubscriber.php.html#63\">lepiaf\\SapientBundle\\EventSubscriber\\SignResponseSubscriber::signHttpFoundationResponse<\/a>"],[100,2,"<a href=\"EventSubscriber\/SignResponseSubscriber.php.html#70\">lepiaf\\SapientBundle\\EventSubscriber\\SignResponseSubscriber::signPsrResponse<\/a>"],[100,1,"<a href=\"EventSubscriber\/SignResponseSubscriber.php.html#80\">lepiaf\\SapientBundle\\EventSubscriber\\SignResponseSubscriber::signResponse<\/a>"],[100,1,"<a href=\"EventSubscriber\/UnsealRequestSubscriber.php.html#31\">lepiaf\\SapientBundle\\EventSubscriber\\UnsealRequestSubscriber::__construct<\/a>"],[100,1,"<a href=\"EventSubscriber\/UnsealRequestSubscriber.php.html#38\">lepiaf\\SapientBundle\\EventSubscriber\\UnsealRequestSubscriber::getSubscribedEvents<\/a>"],[100,1,"<a href=\"EventSubscriber\/UnsealRequestSubscriber.php.html#45\">lepiaf\\SapientBundle\\EventSubscriber\\UnsealRequestSubscriber::unsealRequest<\/a>"],[100,1,"<a href=\"EventSubscriber\/VerifyRequestSubscriber.php.html#33\">lepiaf\\SapientBundle\\EventSubscriber\\VerifyRequestSubscriber::__construct<\/a>"],[100,1,"<a href=\"EventSubscriber\/VerifyRequestSubscriber.php.html#40\">lepiaf\\SapientBundle\\EventSubscriber\\VerifyRequestSubscriber::getSubscribedEvents<\/a>"],[100,1,"<a href=\"EventSubscriber\/VerifyRequestSubscriber.php.html#47\">lepiaf\\SapientBundle\\EventSubscriber\\VerifyRequestSubscriber::verifyRequest<\/a>"],[100,1,"<a href=\"EventSubscriber\/VerifyRequestSubscriber.php.html#57\">lepiaf\\SapientBundle\\EventSubscriber\\VerifyRequestSubscriber::getVerifyingKey<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/RequesterHeaderMiddleware.php.html#16\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\RequesterHeaderMiddleware::__construct<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/RequesterHeaderMiddleware.php.html#21\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\RequesterHeaderMiddleware::__invoke<\/a>"],[0,1,"<a href=\"GuzzleHttp\/Middleware\/SealRequestMiddleware.php.html#24\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\SealRequestMiddleware::__construct<\/a>"],[0,1,"<a href=\"GuzzleHttp\/Middleware\/SealRequestMiddleware.php.html#30\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\SealRequestMiddleware::__invoke<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/SignRequestMiddleware.php.html#27\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\SignRequestMiddleware::__construct<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/SignRequestMiddleware.php.html#33\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\SignRequestMiddleware::__invoke<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/UnsealResponseMiddleware.php.html#24\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\UnsealResponseMiddleware::__construct<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/UnsealResponseMiddleware.php.html#30\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\UnsealResponseMiddleware::__invoke<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/VerifyResponseMiddleware.php.html#25\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\VerifyResponseMiddleware::__construct<\/a>"],[100,1,"<a href=\"GuzzleHttp\/Middleware\/VerifyResponseMiddleware.php.html#31\">lepiaf\\SapientBundle\\GuzzleHttp\\Middleware\\VerifyResponseMiddleware::__invoke<\/a>"],[100,1,"<a href=\"Service\/PublicKeyGetter.php.html#27\">lepiaf\\SapientBundle\\Service\\PublicKeyGetter::__construct<\/a>"],[0,3,"<a href=\"Service\/PublicKeyGetter.php.html#41\">lepiaf\\SapientBundle\\Service\\PublicKeyGetter::getSealingKeyFromHost<\/a>"],[100,5,"<a href=\"Service\/PublicKeyGetter.php.html#61\">lepiaf\\SapientBundle\\Service\\PublicKeyGetter::getSealingKey<\/a>"],[100,5,"<a href=\"Service\/PublicKeyGetter.php.html#84\">lepiaf\\SapientBundle\\Service\\PublicKeyGetter::getVerifyingKey<\/a>"],[66.66666666666666,5,"<a href=\"Service\/PublicKeyGetter.php.html#107\">lepiaf\\SapientBundle\\Service\\PublicKeyGetter::getVerifyingKeyFromRequest<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

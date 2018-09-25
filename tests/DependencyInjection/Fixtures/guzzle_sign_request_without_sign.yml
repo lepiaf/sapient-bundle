@@ -1,0 +1,3 @@
+sapient:
+  guzzle_middleware:
+    sign_request: true
