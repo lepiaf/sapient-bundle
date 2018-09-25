@@ -1,0 +1,10 @@
+sapient:
+  sign:
+    public: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
+    private: 'giP81DlS_R3JL4-UnSVbn2I5lm9abv8vA7aLuEdOUB4bfOjlm5vaj57Kn6DcZhv0lcTN20iqYV0M69Tk9XqEGQ=='
+    host: 'api-alice'
+  seal:
+    public: 'tquhje8C_hNdd85R-CzVq7n7MOLqc5h11GJv7Vo7fgc='
+    private: 'NoxnlCvhxl8NRfCgIhuxm95IE1Y9QFUHMuvDkrWrnQ4='
+  guzzle_middleware:
+    unseal: true

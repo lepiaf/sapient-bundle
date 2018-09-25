@@ -48,7 +48,12 @@ class SapientExtension extends Extension
         if ($config['seal']['enabled']) {
             $container->setParameter('sapient.seal.public', $config['seal']['public']);
             $container->setParameter('sapient.seal.private', $config['seal']['private']);
-            if ($config['seal']['response'] && (!$config['sign']['enabled'] || !$config['sign']['response'])) {
+
+            if (!$config['seal']['response']) {
+                return;
+            }
+
+            if (!$config['sign']['enabled'] || !$config['sign']['response']) {
                 throw new ConfigurationRequiredException('You must enable "sign" option with "sign.response" as true before using "seal.response" feature.');
             }
 
@@ -64,7 +69,7 @@ class SapientExtension extends Extension
             }
 
             if ($config['guzzle_middleware']['unseal']) {
-                if (!$config['seal']['enabled'] || !$config['seal']['private']) {
+                if (!$config['seal']['enabled']) {
                     throw new ConfigurationRequiredException('You must enable "seal" option and configure a "seal.private" key before using "guzzle_middleware.unseal" feature.');
                 }
 

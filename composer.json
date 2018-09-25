@@ -10,7 +10,8 @@
         "symfony/dependency-injection": "^4.0|^3.4",
         "symfony/config": "^4.0|^3.4",
         "symfony/event-dispatcher": "^4.0|^3.4",
-        "zendframework/zend-diactoros": "^1.7"
+        "zendframework/zend-diactoros": "^1.7",
+        "symfony/yaml": "^4.1"
     },
     "license": "MIT",
     "authors": [
