@@ -29,9 +29,11 @@ Go to configuration file and open it. After installation, you only have a key pa
             public: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
             private: 'giP81DlS_R3JL4-UnSVbn2I5lm9abv8vA7aLuEdOUB4bfOjlm5vaj57Kn6DcZhv0lcTN20iqYV0M69Tk9XqEGQ=='
             host: 'api-alice'
+            response: true
         seal:
             public: 'tquhje8C_hNdd85R-CzVq7n7MOLqc5h11GJv7Vo7fgc='
             private: 'NoxnlCvhxl8NRfCgIhuxm95IE1Y9QFUHMuvDkrWrnQ4='
+            response: true
         sealing_public_keys: ~
         verifying_public_keys: ~
 
@@ -117,9 +119,11 @@ Copy and paste sign and seal part.
             public: 'aO8pIZYoGUrPOSJFC1UfH-XE7M19xC-LP-tZwukwFqI='
             private: 'nnr3sTDvLfDHtw6suup3LlNh2YYCCCcXvksDpIp5VHVo7ykhligZSs85IkULVR8f5cTszX3EL4s_61nC6TAWog=='
             host: 'client-bob'
+            response: true
         seal:
             public: 'M2SMMPHg9NOXoX3NgzlWY8iTheyu8qSovnTZpAlIGB0='
             private: 'FzyiZAbEuquHUXt-YNF6WOXFB6CVBpyz2ocMMaT0FK8='
+            response: true
         guzzle_middleware:
             verify: true
         sealing_public_keys: ~
@@ -138,9 +142,11 @@ has a middlware to unseal response. Enable it.
             public: 'aO8pIZYoGUrPOSJFC1UfH-XE7M19xC-LP-tZwukwFqI='
             private: 'nnr3sTDvLfDHtw6suup3LlNh2YYCCCcXvksDpIp5VHVo7ykhligZSs85IkULVR8f5cTszX3EL4s_61nC6TAWog=='
             host: 'client-bob'
+            response: true
         seal:
             public: 'M2SMMPHg9NOXoX3NgzlWY8iTheyu8qSovnTZpAlIGB0='
             private: 'FzyiZAbEuquHUXt-YNF6WOXFB6CVBpyz2ocMMaT0FK8='
+            response: true
         guzzle_middleware:
             verify: true
             unseal: true
@@ -160,9 +166,11 @@ This header is used by API Alice to return a signed and sealed response.
             public: 'aO8pIZYoGUrPOSJFC1UfH-XE7M19xC-LP-tZwukwFqI='
             private: 'nnr3sTDvLfDHtw6suup3LlNh2YYCCCcXvksDpIp5VHVo7ykhligZSs85IkULVR8f5cTszX3EL4s_61nC6TAWog=='
             host: 'client-bob'
+            response: true
         seal:
             public: 'M2SMMPHg9NOXoX3NgzlWY8iTheyu8qSovnTZpAlIGB0='
             private: 'FzyiZAbEuquHUXt-YNF6WOXFB6CVBpyz2ocMMaT0FK8='
+            response: true
         guzzle_middleware:
             verify: true
             unseal: true
@@ -185,9 +193,11 @@ In API Alice, add seal public key of client Bob in ``sealing_public_keys`` confi
             public: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
             private: 'giP81DlS_R3JL4-UnSVbn2I5lm9abv8vA7aLuEdOUB4bfOjlm5vaj57Kn6DcZhv0lcTN20iqYV0M69Tk9XqEGQ=='
             host: 'api-alice'
+            response: true
         seal:
             public: 'tquhje8C_hNdd85R-CzVq7n7MOLqc5h11GJv7Vo7fgc='
             private: 'NoxnlCvhxl8NRfCgIhuxm95IE1Y9QFUHMuvDkrWrnQ4='
+            response: true
         sealing_public_keys:
             -
                 host: 'client-bob'
@@ -225,9 +235,11 @@ As we use Guzzle, you can enable an option to automatically sign and seal all re
             public: 'aO8pIZYoGUrPOSJFC1UfH-XE7M19xC-LP-tZwukwFqI='
             private: 'nnr3sTDvLfDHtw6suup3LlNh2YYCCCcXvksDpIp5VHVo7ykhligZSs85IkULVR8f5cTszX3EL4s_61nC6TAWog=='
             host: 'client-bob'
+            response: true
         seal:
             public: 'M2SMMPHg9NOXoX3NgzlWY8iTheyu8qSovnTZpAlIGB0='
             private: 'FzyiZAbEuquHUXt-YNF6WOXFB6CVBpyz2ocMMaT0FK8='
+            response: true
         guzzle_middleware:
             verify: true
             unseal: true
@@ -252,9 +264,11 @@ There are 2 options: ``verify_request`` and ``unseal_request``. Enable it.
             public: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
             private: 'giP81DlS_R3JL4-UnSVbn2I5lm9abv8vA7aLuEdOUB4bfOjlm5vaj57Kn6DcZhv0lcTN20iqYV0M69Tk9XqEGQ=='
             host: 'api-alice'
+            response: true
         seal:
             public: 'tquhje8C_hNdd85R-CzVq7n7MOLqc5h11GJv7Vo7fgc='
             private: 'NoxnlCvhxl8NRfCgIhuxm95IE1Y9QFUHMuvDkrWrnQ4='
+            response: true
         sealing_public_keys:
             -
                 host: 'client-bob'
@@ -275,9 +289,11 @@ In Client Bob configuration, we must have:
             public: 'aO8pIZYoGUrPOSJFC1UfH-XE7M19xC-LP-tZwukwFqI='
             private: 'nnr3sTDvLfDHtw6suup3LlNh2YYCCCcXvksDpIp5VHVo7ykhligZSs85IkULVR8f5cTszX3EL4s_61nC6TAWog=='
             host: 'client-bob'
+            response: true
         seal:
             public: 'M2SMMPHg9NOXoX3NgzlWY8iTheyu8qSovnTZpAlIGB0='
             private: 'FzyiZAbEuquHUXt-YNF6WOXFB6CVBpyz2ocMMaT0FK8='
+            response: true
         guzzle_middleware:
             verify: true
             unseal: true
@@ -302,9 +318,11 @@ In API Alice configuration, we must have:
             public: 'G3zo5Zub2o-eyp-g3GYb9JXEzdtIqmFdDOvU5PV6hBk='
             private: 'giP81DlS_R3JL4-UnSVbn2I5lm9abv8vA7aLuEdOUB4bfOjlm5vaj57Kn6DcZhv0lcTN20iqYV0M69Tk9XqEGQ=='
             host: 'api-alice'
+            response: true
         seal:
             public: 'tquhje8C_hNdd85R-CzVq7n7MOLqc5h11GJv7Vo7fgc='
             private: 'NoxnlCvhxl8NRfCgIhuxm95IE1Y9QFUHMuvDkrWrnQ4='
+            response: true
         sealing_public_keys:
             -
                 host: 'client-bob'
