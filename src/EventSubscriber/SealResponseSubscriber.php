@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace lepiaf\SapientBundle\EventSubscriber;
 
+use lepiaf\SapientBundle\Exception\SealResponseException;
+use lepiaf\SapientBundle\Exception\WrongKeyException;
 use lepiaf\SapientBundle\Service\PublicKeyGetter;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use ParagonIE\Sapient\CryptographyKeys\SealingPublicKey;
@@ -75,7 +77,13 @@ class SealResponseSubscriber implements EventSubscriberInterface
 
     private function sealResponse(ResponseInterface $response, string $publicKey): Response
     {
-        $psrResponse = $this->sapient->sealResponse($response, new SealingPublicKey(Base64UrlSafe::decode($publicKey)));
+        try {
+            $psrResponse = $this->sapient->sealResponse($response, new SealingPublicKey(Base64UrlSafe::decode($publicKey)));
+        } catch (\RangeException $rangeException) {
+            throw new WrongKeyException($rangeException->getMessage());
+        } catch (\SodiumException $sodiumException) {
+            throw new SealResponseException('Cannot seal response.');
+        }
 
         return $this->httpFoundationFactory->createResponse($psrResponse);
     }
